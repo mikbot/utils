@@ -1,6 +1,6 @@
 # utils
 
-This module acts as a parent for all modules considered util modules.
+Collection of useful plugins for Mikbot
 
 An util module is a module not bound to any specific functionality or bot, but might not be useful for all installations
 of the bot, unlike the [core](../core) module.
