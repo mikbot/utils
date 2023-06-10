@@ -3,11 +3,11 @@
 Collection of useful plugins for Mikbot
 
 An util module is a module not bound to any specific functionality or bot, but might not be useful for all installations
-of the bot, unlike the [core](../core) module.
+of the bot, unlike the [core](https://github.com/DRSchlaubi/mikbot/tree/main/core) module.
 
 # Modules
 
-- [epic-games-notifier](epic-games-notifier) - Adds a webhook that notifies users about every free games on [epicgames.com}(https://epicgames.com)
+- [epic-games-notifier](epic-games-notifier) - Adds a webhook that notifies users about every free games on [epicgames.com](https://epicgames.com)
 - [botblock](botblock) - Plugin posting bot stats to botlists using [Botblock.org](https://botblock.org)
 - [eval](eval) - Plugin allowing bot owners to run Kotlin Code
 - [ktor](ktor) - An API to have a webserver in multiple plugins on the same port powered by [Ktor](https://ktor.io)
