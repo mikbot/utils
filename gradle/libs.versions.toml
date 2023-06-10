@@ -1,0 +1,21 @@
+[versions]
+kotlin = "1.8.22"
+mikbot = "3.18.0"
+
+[libraries]
+# Gradle plugins
+mikbot-gradle-plugin = { group = "dev.schlaubi", name = "gradle-plugin", version.ref = "mikbot" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "1.8.22-1.0.11" }
+
+mikbot-ktor = { group = "dev.schlaubi", name = "mikbot-ktor", version.ref = "mikbot" }
+mikbot-gdpr = { group = "dev.schlaubi", name = "mikbot-gdpr", version.ref = "mikbot" }
+mikbot-haste-client = { group = "dev.schlaubi", name = "mikbot-haste-client", version.ref = "mikbot" }
+
+rhino = { group = "org.mozilla", name = "rhino", version = "1.7.14" }
+kordex-processor = { group = "com.kotlindiscord.kord.extensions", name = "annotation-processor", version = "1.5.7-SNAPSHOT" }
+kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "4.9.0" }
+
+[plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+

@@ -1,19 +1,17 @@
 plugins {
-    `mikbot-plugin`
-    `mikbot-module`
+    mikbot
 }
 
-group = "dev.schlaubi.mikbot"
 version = "2.9.0"
 
 dependencies {
     implementation(libs.rhino)
-    implementation(projects.utils.hasteClient)
+    implementation(libs.mikbot.haste.client)
     ksp(libs.kordex.processor)
 }
 
 mikbotPlugin {
-    description.set("Plugin allowing users to execute code.")
+    description = "Plugin allowing users to execute code."
 }
 
 kotlin {

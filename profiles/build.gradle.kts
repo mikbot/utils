@@ -4,7 +4,6 @@ plugins {
     kotlin("plugin.serialization")
 }
 
-group = "dev.schlaubi.mikbot"
 version = "2.12.0"
 
 repositories {

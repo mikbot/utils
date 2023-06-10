@@ -1,12 +1,10 @@
 plugins {
-    `mikbot-module`
-    `mikbot-plugin`
-    kotlin("plugin.serialization")
+    mikbot
+    alias(libs.plugins.kotlin.serialization)
 }
 
-group = "dev.schlaubi"
 version = "2.10.0"
 
 mikbotPlugin {
-    description.set("Plugin adding support to post server counts to server lists using botblock")
+    description = "Plugin adding support to post server counts to server lists using botblock"
 }

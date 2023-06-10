@@ -1,13 +1,11 @@
 plugins {
-    `mikbot-plugin`
-    `mikbot-module`
-    kotlin("plugin.serialization")
+    mikbot
+    alias(libs.plugins.kotlin.serialization)
 }
 
-group = "dev.schlaubi"
 version = "1.9.0"
 
 dependencies {
-    plugin(projects.utils.ktor)
-    optionalPlugin(projects.core.gdpr)
+    plugin(libs.mikbot.ktor)
+    optionalPlugin(libs.mikbot.gdpr)
 }

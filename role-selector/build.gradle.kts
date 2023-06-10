@@ -1,13 +1,11 @@
 plugins {
-    `mikbot-plugin`
-    `mikbot-module`
-    kotlin("plugin.serialization")
+    mikbot
+    alias(libs.plugins.kotlin.serialization)
 }
 
-group = "dev.schlaubi.mikbot"
 version = "3.7.0"
 
 mikbotPlugin {
-    description.set("Give Roles on a specific Event")
-    bundle.set("roleselector")
+    description = "Give Roles on a specific Event"
+    bundle = "roleselector"
 }

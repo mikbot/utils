@@ -1,19 +1,17 @@
 plugins {
-    `mikbot-plugin`
-    `mikbot-module`
-    kotlin("plugin.serialization")
+    mikbot
+    alias(libs.plugins.kotlin.serialization)
 }
 
-group = "dev.schlaubi.mikbot"
 version = "2.12.0"
 
 dependencies {
-    optionalPlugin(projects.core.gdpr)
-    optionalPlugin(projects.utils.ktor)
+    optionalPlugin(libs.mikbot.gdpr)
+    optionalPlugin(libs.mikbot.ktor)
     implementation(libs.kmongo.id.serialization)
 }
 
 mikbotPlugin {
-    description.set("Adds a leaderboard")
+    description= "Adds a leaderboard"
 }
 

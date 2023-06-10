@@ -1,12 +1,14 @@
 plugins {
-    `mikbot-plugin`
-    `mikbot-module`
-    kotlin("plugin.serialization")
+    mikbot
+    alias(libs.plugins.kotlin.serialization)
 }
 
-group = "dev.schlaubi"
 version = "3.9.0"
 
 dependencies {
-    plugin(projects.utils.ktor)
+    plugin(libs.mikbot.ktor)
+}
+
+mikbotPlugin {
+    description = "Adds a webhook that notifies users about every free games on epicgames.com"
 }
