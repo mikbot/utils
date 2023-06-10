@@ -2,7 +2,7 @@ plugins {
     mikbot
 }
 
-version = "2.9.0"
+version = "3.0.0"
 
 dependencies {
     implementation(libs.rhino)
