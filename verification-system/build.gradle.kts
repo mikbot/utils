@@ -1,3 +1,5 @@
+import dev.schlaubi.mikbot.gradle.mikbot
+
 plugins {
     mikbot
     alias(libs.plugins.kotlin.serialization)
@@ -6,7 +8,7 @@ plugins {
 version = "3.0.0"
 
 dependencies {
-    plugin(libs.mikbot.ktor)
+    plugin(mikbot(libs.mikbot.ktor))
 }
 
 mikbotPlugin {

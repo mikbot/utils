@@ -1,3 +1,5 @@
+import dev.schlaubi.mikbot.gradle.mikbot
+
 plugins {
     mikbot
 }
@@ -6,7 +8,7 @@ version = "3.0.0"
 
 dependencies {
     implementation(libs.rhino)
-    implementation(libs.mikbot.haste.client)
+    implementation(mikbot(libs.mikbot.haste.client))
     ksp(libs.kordex.processor)
 }
 

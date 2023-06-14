@@ -1,3 +1,5 @@
+import dev.schlaubi.mikbot.gradle.mikbot
+
 plugins {
     mikbot
     alias(libs.plugins.kotlin.serialization)
@@ -6,8 +8,8 @@ plugins {
 version = "3.0.0"
 
 dependencies {
-    optionalPlugin(libs.mikbot.gdpr)
-    optionalPlugin(libs.mikbot.ktor)
+    optionalPlugin(mikbot(libs.mikbot.gdpr))
+    optionalPlugin(mikbot(libs.mikbot.ktor))
     implementation(libs.kmongo.id.serialization)
 }
 
