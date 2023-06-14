@@ -54,7 +54,7 @@ class KtorServer : KtorExtensionPoint, KordExKoinComponent {
                 context.respond(
                     LeaderBoardEntity(
                         guild.name,
-                        guild.getIconUrl(Image.Format.WEBP),
+                        guild.icon?.cdnUrl?.toUrl { format = Image.Format.WEBP },
                         leaderboard.map {
                             val member = members[it.userId]
                             leaderBoardMember(member, it)
@@ -92,7 +92,8 @@ class KtorServer : KtorExtensionPoint, KordExKoinComponent {
             entry.points,
             entry.level,
             entry.lastXpReceived,
-            member?.memberAvatar?.url ?: member?.effectiveAvatar
+            member?.memberAvatar?.cdnUrl?.toUrl()
+                ?: member?.effectiveAvatar
         )
     }
 }

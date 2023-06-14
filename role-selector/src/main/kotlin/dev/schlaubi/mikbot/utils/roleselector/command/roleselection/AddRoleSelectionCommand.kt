@@ -20,7 +20,7 @@ import dev.schlaubi.mikbot.utils.roleselector.util.toPartialEmoji
 import dev.schlaubi.mikbot.utils.roleselector.util.translateString
 import dev.schlaubi.mikbot.utils.roleselector.util.updateMessage
 
-suspend fun EphemeralSlashCommand<*>.addRoleSelectionCommand() = ephemeralSubCommand(::AddRoleSelectionArguments) {
+suspend fun EphemeralSlashCommand<*, *>.addRoleSelectionCommand() = ephemeralSubCommand(::AddRoleSelectionArguments) {
     name = "add-role"
     description = "commands.add_role.description"
     guildAdminOnly()

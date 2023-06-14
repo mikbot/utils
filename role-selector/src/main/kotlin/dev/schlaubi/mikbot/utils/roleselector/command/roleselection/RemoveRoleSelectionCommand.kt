@@ -17,7 +17,7 @@ import dev.schlaubi.mikbot.utils.roleselector.util.setTranslationKey
 import dev.schlaubi.mikbot.utils.roleselector.util.translateString
 import dev.schlaubi.mikbot.utils.roleselector.util.updateMessage
 
-suspend fun EphemeralSlashCommand<*>.removeRoleSelectionCommand() = ephemeralSubCommand(::RemoveRoleSelectionArguments) {
+suspend fun EphemeralSlashCommand<*, *>.removeRoleSelectionCommand() = ephemeralSubCommand(::RemoveRoleSelectionArguments) {
     name = "remove-role"
     description = "commands.remove_role.description"
     guildAdminOnly()

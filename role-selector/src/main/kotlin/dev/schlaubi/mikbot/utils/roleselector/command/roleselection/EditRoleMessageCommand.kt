@@ -16,7 +16,7 @@ import dev.schlaubi.mikbot.utils.roleselector.util.setTranslationKey
 import dev.schlaubi.mikbot.utils.roleselector.util.translateString
 import dev.schlaubi.mikbot.utils.roleselector.util.updateMessage
 
-suspend fun SlashCommand<*, *>.editRoleMessageCommand() = ephemeralSubCommand(::EditRoleMessageArguments) {
+suspend fun SlashCommand<*, *, *>.editRoleMessageCommand() = ephemeralSubCommand(::EditRoleMessageArguments) {
     name = "edit-message"
     description = "commands.edit_message.description"
 

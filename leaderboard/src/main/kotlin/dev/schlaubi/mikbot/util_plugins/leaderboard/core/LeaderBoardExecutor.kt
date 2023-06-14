@@ -20,7 +20,7 @@ suspend fun LeaderBoardModule.leaderBoardExecutor() = event<MessageCreateEvent> 
     }
 
     action {
-        val member = event.message.getAuthorAsMember() ?: return@action
+        val member = event.message.getAuthorAsMemberOrNull() ?: return@action
         val existingUser = LeaderBoardDatabase.leaderboardEntries.findByMember(member)
 
         if (Clock.System.now() - existingUser.lastXpReceived <= 1.minutes) return@action
@@ -30,7 +30,7 @@ suspend fun LeaderBoardModule.leaderBoardExecutor() = event<MessageCreateEvent> 
         val user = if (existingUser.points + xpGain >= calculateXPForNextLevel(existingUser.level)) {
             val settings = LeaderBoardDatabase.settings.findOneById(member.guildId)
             if (settings?.levelUpChannel != null) {
-                val channel = event.getGuild()!!.getChannelOfOrNull<GuildMessageChannel>(settings.levelUpChannel)
+                val channel = event.getGuildOrNull()!!.getChannelOfOrNull<GuildMessageChannel>(settings.levelUpChannel)
                 if (channel != null) {
                     channel.createMessage(
                         settings.levelUpMessage

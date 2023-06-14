@@ -30,7 +30,8 @@ suspend fun LeaderBoardModule.rankCommand() = publicSlashCommand(::RankArguments
             embed {
                 author {
                     name = target.nickname ?: target.username
-                    icon = target.memberAvatar?.url ?: target.effectiveAvatar
+                    icon = target.memberAvatar?.cdnUrl?.toUrl()
+                        ?: target.effectiveAvatar
                 }
 
                 field {

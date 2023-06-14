@@ -22,6 +22,7 @@ import dev.schlaubi.mikbot.plugin.api.util.safeGuild
 import dev.schlaubi.mikbot.plugin.api.util.safeMember
 import io.ktor.util.*
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 private const val codeInputField = "code"
@@ -33,7 +34,7 @@ class EvalArguments : Arguments() {
     }
 }
 
-@OptIn(UnsafeAPI::class)
+@OptIn(UnsafeAPI::class, ExperimentalTime::class)
 suspend fun EvalExtension.evalCommand() = unsafeSlashCommand(::EvalArguments) {
     name = "eval"
     description = "commands.eval.description"

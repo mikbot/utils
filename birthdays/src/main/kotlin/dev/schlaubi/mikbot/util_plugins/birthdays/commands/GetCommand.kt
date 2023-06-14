@@ -21,7 +21,7 @@ class GetArguments : Arguments() {
 }
 
 @OptIn(KordUnsafe::class, KordExperimental::class)
-suspend fun SlashCommand<*, *>.getCommand() = publicSubCommand(::GetArguments) {
+suspend fun SlashCommand<*, *, *>.getCommand() = publicSubCommand(::GetArguments) {
     name = "get"
     description = "commands.birthday.get.description"
 

@@ -6,6 +6,7 @@ import com.kotlindiscord.kord.extensions.commands.application.slash.ephemeralSub
 import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalString
 import com.kotlindiscord.kord.extensions.types.respond
 import dev.kord.common.DiscordTimestampStyle
+import dev.kord.common.asJavaLocale
 import dev.kord.common.toMessageFormat
 import dev.kord.core.behavior.interaction.followup.edit
 import dev.kord.rest.builder.message.create.embed
@@ -28,7 +29,7 @@ class SetArguments : Arguments() {
     }
 }
 
-suspend fun SlashCommand<*, *>.setCommand() = ephemeralSubCommand(::SetArguments) {
+suspend fun SlashCommand<*, *, *>.setCommand() = ephemeralSubCommand(::SetArguments) {
     name = "set"
     description = "commands.birthday.set.description"
 

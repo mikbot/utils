@@ -13,7 +13,7 @@ import dev.schlaubi.mikbot.util_plugins.birthdays.calculate
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
 
 @OptIn(KordUnsafe::class, KordExperimental::class)
-suspend fun SlashCommand<*, *>.listCommand() = publicSubCommand {
+suspend fun SlashCommand<*, *, *>.listCommand() = publicSubCommand {
     name = "list"
     description = "commands.birthday.list.description"
 
