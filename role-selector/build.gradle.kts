@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "4.0.0"
+version = "4.0.1"
 
 mikbotPlugin {
     description = "Give Roles on a specific Event"
