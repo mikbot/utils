@@ -40,7 +40,6 @@ suspend fun EphemeralInteractionContext.createConversation(channel: MessageChann
             conversation.requestAnswer(initialMessage.content).also {
                 channel.createMessage {
                     content = it.messages.last().content
-                    messageReference = initialMessage.id
                 }
             }
         }
