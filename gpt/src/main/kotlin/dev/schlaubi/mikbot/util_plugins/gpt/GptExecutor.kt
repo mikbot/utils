@@ -10,6 +10,7 @@ import kotlinx.datetime.Clock
 suspend fun Extension.gptExecutor() = event<MessageCreateEvent> {
     check {
         isNotBot()
+        failIf { event.message.content.startsWith('#') }
     }
 
     action {
