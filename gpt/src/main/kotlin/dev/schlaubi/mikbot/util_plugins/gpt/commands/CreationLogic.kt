@@ -4,6 +4,7 @@ import com.kotlindiscord.kord.extensions.commands.CommandContext
 import com.kotlindiscord.kord.extensions.types.EphemeralInteractionContext
 import com.kotlindiscord.kord.extensions.types.respond
 import dev.kord.core.behavior.channel.withTyping
+import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
 import dev.kord.core.entity.channel.TextChannel
@@ -18,7 +19,7 @@ suspend fun EphemeralInteractionContext.createConversation(
 ) {
     val thread = baseChannel.startPublicThreadWithMessage(initialMessage.id, "deppgpt") {}
 
-    createConversation(thread, initialMessage.content)
+    createConversation(thread, initialMessage)
 }
 
 context(CommandContext)
@@ -32,12 +33,14 @@ suspend fun EphemeralInteractionContext.createConversation(
 }
 
 context(CommandContext)
-suspend fun EphemeralInteractionContext.createConversation(channel: MessageChannel, initialMessage: String? = null) {
+suspend fun EphemeralInteractionContext.createConversation(channel: MessageChannel, initialMessage: Message? = null) {
     val conversation = Conversation(channel.id, emptyList(), Clock.System.now())
     val filledConversation = if (initialMessage != null) {
         channel.withTyping {
-            conversation.requestAnswer(initialMessage).also {
-                channel.createMessage(it.messages.last().content)
+            conversation.requestAnswer(initialMessage.content).also {
+                initialMessage.reply {
+                    content = it.messages.last().content
+                }
             }
         }
     } else {

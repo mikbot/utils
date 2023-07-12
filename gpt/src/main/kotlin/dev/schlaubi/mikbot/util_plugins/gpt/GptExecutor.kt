@@ -4,6 +4,7 @@ import com.kotlindiscord.kord.extensions.checks.isNotBot
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.core.behavior.channel.withTyping
+import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.datetime.Clock
 
@@ -24,7 +25,9 @@ suspend fun Extension.gptExecutor() = event<MessageCreateEvent> {
         event.message.channel.withTyping {
             val newRequest = realConversation.requestAnswer(event.message.content)
             GptDatabase.conversations.save(newRequest)
-            event.message.channel.createMessage(newRequest.messages.last().content)
+            event.message.reply {
+                content = newRequest.messages.last().content
+            }
         }
     }
 }
