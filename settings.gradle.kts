@@ -4,7 +4,7 @@ include(
     ":birthdays",
     ":botblock",
     ":eval",
-    ":github-contributor",
+    ":gpt",
     ":leaderboard",
     ":epic-games-notifier",
     ":role-selector",
