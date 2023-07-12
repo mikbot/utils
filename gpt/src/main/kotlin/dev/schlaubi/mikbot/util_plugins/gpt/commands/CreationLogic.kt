@@ -3,8 +3,8 @@ package dev.schlaubi.mikbot.util_plugins.gpt.commands
 import com.kotlindiscord.kord.extensions.commands.CommandContext
 import com.kotlindiscord.kord.extensions.types.EphemeralInteractionContext
 import com.kotlindiscord.kord.extensions.types.respond
+import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.channel.withTyping
-import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
 import dev.kord.core.entity.channel.TextChannel
@@ -38,8 +38,9 @@ suspend fun EphemeralInteractionContext.createConversation(channel: MessageChann
     val filledConversation = if (initialMessage != null) {
         channel.withTyping {
             conversation.requestAnswer(initialMessage.content).also {
-                initialMessage.reply {
+                channel.createMessage {
                     content = it.messages.last().content
+                    messageReference = initialMessage.id
                 }
             }
         }
