@@ -4,9 +4,9 @@ import com.kotlindiscord.kord.extensions.commands.Arguments
 import com.kotlindiscord.kord.extensions.commands.converters.impl.channel
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
-import com.kotlindiscord.kord.extensions.types.respond
 import dev.kord.common.entity.ChannelType
 import dev.kord.common.entity.Permission
+import dev.kord.core.behavior.channel.asChannelOf
 import dev.kord.core.entity.channel.MessageChannel
 
 class NewChannelArgs : Arguments() {
@@ -23,6 +23,6 @@ suspend fun Extension.newChannelCommand() = ephemeralSlashCommand(::NewChannelAr
     requirePermission(Permission.ManageChannels)
 
     action {
-        createConversation(arguments.channel as MessageChannel)
+        createConversation(arguments.channel.asChannelOf<MessageChannel>())
     }
 }
