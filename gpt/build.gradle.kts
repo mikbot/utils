@@ -28,7 +28,10 @@ tasks {
     }
 
     val generateDefaultBundle by registering(GenerateDefaultTranslationBundleTask::class) {
-        defaultLocale = Locale("en", "GB")
+        defaultLocale = Locale.Builder().apply {
+            setLanguage("en")
+            setRegion("GB")
+        }.build()
     }
 
     classes {
