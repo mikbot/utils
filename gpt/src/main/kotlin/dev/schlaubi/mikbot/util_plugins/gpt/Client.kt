@@ -10,7 +10,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 
-private const val baseUrl = "https://deppgptrelease221-ep4qq6pqcq-ew.a.run.app/"
+private const val baseUrl = "https://europe-west1-deppgpt.cloudfunctions.net/DeppGPTRelease221"
 
 object GptClient {
     private val client = HttpClient {
