@@ -1,19 +1,19 @@
 [versions]
-kotlin = "1.8.22"
-mikbot = "3.20.0"
+kotlin = "1.9.0"
+mikbot = "3.23.3"
 
 [libraries]
 # Gradle plugins
 mikbot-gradle-plugin = { group = "dev.schlaubi", name = "gradle-plugin", version.ref = "mikbot" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "1.8.22-1.0.11" }
+ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "1.9.0-1.0.11" }
 
 mikbot-ktor = { group = "dev.schlaubi", name = "mikbot-ktor" }
 mikbot-gdpr = { group = "dev.schlaubi", name = "mikbot-gdpr" }
 mikbot-haste-client = { group = "dev.schlaubi", name = "mikbot-haste-client" }
 
 rhino = { group = "org.mozilla", name = "rhino", version = "1.7.14" }
-kordex-processor = { group = "com.kotlindiscord.kord.extensions", name = "annotation-processor", version = "1.5.7-SNAPSHOT" }
+kordex-processor = { group = "com.kotlindiscord.kord.extensions", name = "annotation-processor", version = "1.5.8-SNAPSHOT" }
 kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "4.9.0" }
 
 [plugins]

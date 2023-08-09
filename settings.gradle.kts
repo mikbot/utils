@@ -3,10 +3,11 @@ rootProject.name = "utils"
 include(
     ":birthdays",
     ":botblock",
+    ":brieftaube",
+    ":epic-games-notifier",
     ":eval",
     ":gpt",
     ":leaderboard",
-    ":epic-games-notifier",
     ":role-selector",
     ":verification-system"
 )
