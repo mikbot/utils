@@ -7,6 +7,7 @@ import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import org.litote.kmongo.eq
 
 suspend fun Extension.executor() = event<MessageCreateEvent> {
@@ -19,7 +20,7 @@ suspend fun Extension.executor() = event<MessageCreateEvent> {
         val expression = AnsweringMachineDatabase.regexes
             .find(AnswerRegex::guildId eq event.guildId)
             .toFlow()
-            .first { event.message.content.matches(it.regex) }
+            .firstOrNull { event.message.content.matches(it.regex) } ?: return@action
 
         val answer = event.message.content.replace(expression.regex, expression.replacement)
         if (expression.delete) {
