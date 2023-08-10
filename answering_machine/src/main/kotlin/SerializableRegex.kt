@@ -13,7 +13,16 @@ typealias SerializableRegex = @Serializable(with = RegexSerializer::class) Regex
 object RegexSerializer : KSerializer<Regex> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Regex", PrimitiveKind.STRING)
 
-    override fun serialize(encoder: Encoder, value: Regex) = encoder.encodeString(value.toString())
+    override fun serialize(encoder: Encoder, value: Regex) {
+        val pattern = "$value:${value.options.joinToString(",")}"
+        encoder.encodeString(pattern)
+    }
 
-    override fun deserialize(decoder: Decoder): Regex = decoder.decodeString().toRegex()
+    override fun deserialize(decoder: Decoder): Regex {
+        val split = decoder.decodeString().split(':')
+        if (split.size == 1) return split.first().toRegex()
+        val (pattern, optionsRaw) = split
+        val options = optionsRaw.split(',').map(RegexOption::valueOf)
+        return pattern.toRegex(options.toSet())
+    }
 }
