@@ -15,6 +15,7 @@ class BrieftaubePlugin(context: PluginContext) : Plugin(context) {
 
 private class BrieftaubeExtension(context: PluginContext) : MikBotModule(context) {
     override val name: String = "brieftaube"
+    override val bundle: String = "brieftaube"
 
     override suspend fun setup() {
         mirrorChannelCommand()
