@@ -25,6 +25,7 @@ object RegexSerializer : KSerializer<Regex> {
         val split = decoder.decodeString().split(separator)
         if (split.size == 1) return split.first().toRegex()
         val (pattern, optionsRaw) = split
+        if (optionsRaw.isBlank()) return split.first().toRegex()
         val options = optionsRaw.split(',').map(RegexOption::valueOf)
         return pattern.toRegex(options.toSet())
     }
