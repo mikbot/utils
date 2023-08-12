@@ -6,7 +6,6 @@ import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import org.litote.kmongo.eq
 
