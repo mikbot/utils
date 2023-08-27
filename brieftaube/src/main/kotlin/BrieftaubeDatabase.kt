@@ -26,6 +26,7 @@ data class MirroredChannel(
 
 @Serializable
 data class Webhook(
+    val channelId: Snowflake,
     val webhookId: Snowflake,
     val token: String
 )

@@ -11,6 +11,7 @@ import com.kotlindiscord.kord.extensions.types.respond
 import com.kotlindiscord.kord.extensions.utils.suggestStringMap
 import dev.kord.common.entity.ChannelType
 import dev.kord.common.entity.Permission
+import dev.kord.core.behavior.channel.asChannelOf
 import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.entity.channel.thread.ThreadChannel
 import dev.kord.core.entity.interaction.GuildInteraction
@@ -64,10 +65,15 @@ suspend fun Extension.mirrorChannelCommand() = ephemeralSlashCommand(::MirrorCha
     }
 
     action {
+        val targetChannel = event.interaction.channel.asChannelOf<ThreadChannel>()
+
+        val webhook = findOrCreateWebhookFor(targetChannel)
+
         val item = MirroredChannel(
             guildId = (event.interaction as GuildInteraction).guildId,
             sourceChannelId = arguments.channel.id,
-            targetChannelId = event.interaction.channelId
+            targetChannelId = event.interaction.channelId,
+            webhook = webhook
         )
         BrieftaubeDatabase.channels.save(item)
 

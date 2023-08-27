@@ -4,7 +4,6 @@ import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.common.annotation.KordExperimental
 import dev.kord.common.annotation.KordUnsafe
-import dev.kord.core.behavior.channel.createWebhook
 import dev.kord.core.behavior.execute
 import dev.kord.core.entity.channel.thread.ThreadChannel
 import dev.kord.core.event.message.MessageCreateEvent
@@ -32,12 +31,9 @@ suspend fun Extension.mirrorChannelExecutor() = event<MessageCreateEvent> {
                 try {
                     val webhook = it.webhook ?: run {
                         val thread = kord.getChannelOf<ThreadChannel>(it.targetChannelId)!!
-                        val parent = thread.parent
-                        val webhook = parent.createWebhook("Channel mirroring")
-
-                        it.copy(webhook = Webhook(webhook.id, webhook.token!!)).also { entity ->
-                            BrieftaubeDatabase.channels.save(entity)
-                        }.webhook!!
+                        findOrCreateWebhookFor(thread).also { webhook ->
+                            BrieftaubeDatabase.channels.save(it.copy(webhook = webhook))
+                        }
                     }
                     val target = kord.unsafe.webhook(webhook.webhookId)
 
