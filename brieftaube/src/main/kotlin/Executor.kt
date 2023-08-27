@@ -4,10 +4,13 @@ import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.common.annotation.KordExperimental
 import dev.kord.common.annotation.KordUnsafe
-import dev.kord.core.behavior.channel.createMessage
+import dev.kord.core.behavior.channel.createWebhook
+import dev.kord.core.behavior.execute
+import dev.kord.core.entity.channel.thread.ThreadChannel
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.request.RestRequestException
+import dev.schlaubi.mikbot.plugin.api.util.effectiveAvatar
 import dev.schlaubi.stdx.coroutines.forEachParallel
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -27,13 +30,26 @@ suspend fun Extension.mirrorChannelExecutor() = event<MessageCreateEvent> {
             .toFlow()
             .collect {
                 try {
-                    val target = kord.unsafe.messageChannel(it.targetChannelId)
-                    target.createMessage {
+                    val webhook = it.webhook ?: run {
+                        val thread = kord.getChannelOf<ThreadChannel>(it.targetChannelId)!!
+                        val parent = thread.parent
+                        val webhook = parent.createWebhook("Channel mirroring")
+
+                        it.copy(webhook = Webhook(webhook.id, webhook.token!!)).also { entity ->
+                            BrieftaubeDatabase.channels.save(entity)
+                        }.webhook!!
+                    }
+                    val target = kord.unsafe.webhook(webhook.webhookId)
+
+                    target.execute(webhook.token, threadId = it.targetChannelId) {
+                        username = event.message.author?.username
+                        avatarUrl = event.message.author?.effectiveAvatar
+
                         content = event.message.content
                         embeds.addAll(event.message.embeds.map { EmbedBuilder().apply { it.apply(this) } })
-                        event.message.attachments.forEachParallel {
-                            val attachment = client.get(it.url).bodyAsChannel()
-                            addFile(it.filename, ChannelProvider { attachment })
+                        event.message.attachments.forEachParallel { attachment ->
+                            val bytes = client.get(attachment.url).bodyAsChannel()
+                            addFile(attachment.filename, ChannelProvider { bytes })
                         }
                     }
                 } catch (e: RestRequestException) {

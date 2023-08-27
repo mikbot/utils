@@ -20,5 +20,12 @@ data class MirroredChannel(
     val id: @Contextual Id<MirroredChannel> = newId(),
     val guildId: Snowflake,
     val sourceChannelId: Snowflake,
-    val targetChannelId: Snowflake
+    val targetChannelId: Snowflake,
+    val webhook: Webhook? = null
+)
+
+@Serializable
+data class Webhook(
+    val webhookId: Snowflake,
+    val token: String
 )
