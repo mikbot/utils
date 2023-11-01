@@ -2,12 +2,12 @@ package dev.schlaubi.mikbot.util_plugins.birthdays.commands
 
 import com.kotlindiscord.kord.extensions.commands.application.slash.SlashCommand
 import com.kotlindiscord.kord.extensions.commands.application.slash.publicSubCommand
-import com.kotlindiscord.kord.extensions.types.editingPaginator
 import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.annotation.KordExperimental
 import dev.kord.common.annotation.KordUnsafe
 import dev.kord.common.toMessageFormat
 import dev.schlaubi.mikbot.plugin.api.util.forFlow
+import dev.schlaubi.mikbot.plugin.api.util.forList
 import dev.schlaubi.mikbot.plugin.api.util.kord
 import dev.schlaubi.mikbot.util_plugins.birthdays.calculate
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
@@ -18,13 +18,11 @@ suspend fun SlashCommand<*, *, *>.listCommand() = publicSubCommand {
     description = "commands.birthday.list.description"
 
     action {
-        val amount = BirthdayDatabase.birthdays.countDocuments()
-        val birthdays = BirthdayDatabase.birthdays.find().toFlow()
+        val birthdays = BirthdayDatabase.birthdays.find().toList()
 
         editingPaginator {
-            forFlow(
+            forList(
                 user,
-                amount,
                 birthdays,
                 {
                     val (birthday, nextBirthday, _, nextAge) = it.calculate()

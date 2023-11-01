@@ -2,7 +2,6 @@ package dev.schlaubi.epic_games_notifier
 
 import com.kotlindiscord.kord.extensions.checks.hasPermission
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
-import com.kotlindiscord.kord.extensions.types.respond
 import dev.kord.common.entity.Permission
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsExtensionPoint
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsModule
