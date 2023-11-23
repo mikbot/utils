@@ -8,16 +8,12 @@ import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalEmoji
 import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalString
 import com.kotlindiscord.kord.extensions.commands.converters.impl.role
 import dev.kord.common.entity.AllowedMentionType
-import dev.kord.rest.builder.message.create.allowedMentions
+import dev.kord.rest.builder.message.allowedMentions
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import dev.schlaubi.mikbot.plugin.api.util.safeGuild
 import dev.schlaubi.mikbot.utils.roleselector.RoleSelectionButton
 import dev.schlaubi.mikbot.utils.roleselector.RoleSelectorDatabase
-import dev.schlaubi.mikbot.utils.roleselector.util.autoCompleteRoleSelectionMessage
-import dev.schlaubi.mikbot.utils.roleselector.util.setTranslationKey
-import dev.schlaubi.mikbot.utils.roleselector.util.toPartialEmoji
-import dev.schlaubi.mikbot.utils.roleselector.util.translateString
-import dev.schlaubi.mikbot.utils.roleselector.util.updateMessage
+import dev.schlaubi.mikbot.utils.roleselector.util.*
 
 suspend fun EphemeralSlashCommand<*, *>.addRoleSelectionCommand() = ephemeralSubCommand(::AddRoleSelectionArguments) {
     name = "add-role"

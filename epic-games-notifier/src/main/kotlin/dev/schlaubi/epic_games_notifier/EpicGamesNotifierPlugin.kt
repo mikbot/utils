@@ -6,8 +6,8 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.schlaubi.mikbot.plugin.api.Plugin
+import dev.schlaubi.mikbot.plugin.api.PluginContext
 import dev.schlaubi.mikbot.plugin.api.PluginMain
-import dev.schlaubi.mikbot.plugin.api.PluginWrapper
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -71,7 +71,7 @@ class EpicGamesNotifierModule : Extension(), CoroutineScope {
 }
 
 @PluginMain
-class EpicGamesNotifierPlugin(wrapper: PluginWrapper) : Plugin(wrapper) {
+class EpicGamesNotifierPlugin(wrapper: PluginContext) : Plugin(wrapper) {
     override fun ExtensibleBotBuilder.ExtensionsBuilder.addExtensions() {
         add(::EpicGamesNotifierModule)
     }

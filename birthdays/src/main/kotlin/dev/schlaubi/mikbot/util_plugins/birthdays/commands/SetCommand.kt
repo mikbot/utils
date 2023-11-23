@@ -8,7 +8,7 @@ import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.asJavaLocale
 import dev.kord.common.toMessageFormat
 import dev.kord.core.behavior.interaction.followup.edit
-import dev.kord.rest.builder.message.create.embed
+import dev.kord.rest.builder.message.embed
 import dev.schlaubi.mikbot.plugin.api.util.discordError
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday

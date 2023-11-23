@@ -12,8 +12,7 @@ import dev.kord.core.behavior.interaction.modal
 import dev.kord.core.behavior.interaction.response.createEphemeralFollowup
 import dev.kord.core.behavior.interaction.response.respond
 import dev.kord.core.event.interaction.ModalSubmitInteractionCreateEvent
-import dev.kord.rest.builder.message.create.embed
-import dev.kord.rest.builder.message.modify.embed
+import dev.kord.rest.builder.message.embed
 import dev.kord.x.emoji.Emojis
 import dev.schlaubi.mikbot.eval.integration.ExecutionContext
 import dev.schlaubi.mikbot.eval.language.converter.language
@@ -22,7 +21,6 @@ import dev.schlaubi.mikbot.plugin.api.util.safeGuild
 import dev.schlaubi.mikbot.plugin.api.util.safeMember
 import io.ktor.util.*
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 private const val codeInputField = "code"
@@ -34,7 +32,7 @@ class EvalArguments : Arguments() {
     }
 }
 
-@OptIn(UnsafeAPI::class, ExperimentalTime::class)
+@OptIn(UnsafeAPI::class)
 suspend fun EvalExtension.evalCommand() = unsafeSlashCommand(::EvalArguments) {
     name = "eval"
     description = "commands.eval.description"

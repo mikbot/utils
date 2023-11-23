@@ -42,7 +42,7 @@ suspend fun Extension.mirrorChannelExecutor() = event<MessageCreateEvent> {
                         avatarUrl = event.message.author?.effectiveAvatar
 
                         content = event.message.content
-                        embeds.addAll(event.message.embeds.map { EmbedBuilder().apply { it.apply(this) } })
+                        embeds = event.message.embeds.map { EmbedBuilder().apply { it.apply(this) } }.toMutableList()
                         event.message.attachments.forEachParallel { attachment ->
                             val bytes = client.get(attachment.url).bodyAsChannel()
                             addFile(attachment.filename, ChannelProvider { bytes })

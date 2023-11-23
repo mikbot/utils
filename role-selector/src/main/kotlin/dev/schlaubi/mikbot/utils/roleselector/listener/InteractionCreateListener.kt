@@ -5,7 +5,7 @@ import com.kotlindiscord.kord.extensions.utils.hasRole
 import dev.kord.common.entity.AllowedMentionType
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.event.interaction.ComponentInteractionCreateEvent
-import dev.kord.rest.builder.message.create.allowedMentions
+import dev.kord.rest.builder.message.allowedMentions
 import dev.kord.rest.request.RestRequestException
 import dev.schlaubi.mikbot.plugin.api.util.respondEphemeral
 import dev.schlaubi.mikbot.utils.roleselector.RoleSelectionButton
