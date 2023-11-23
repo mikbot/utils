@@ -64,7 +64,7 @@ data class Promotions(
 @Serializable
 data class PromotionalOffer(
     val startDate: Instant,
-    val endDate: Instant
+    val endDate: Instant?
 )
 
 @Serializable
