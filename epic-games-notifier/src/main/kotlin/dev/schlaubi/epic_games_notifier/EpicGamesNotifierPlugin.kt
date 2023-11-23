@@ -81,7 +81,7 @@ suspend fun Webhook.sendGames(kord: Kord, games: List<EmbedBuilder>, gameIds: Li
     if (games.isEmpty()) return
 
     kord.rest.webhook.executeWebhook(id, token) {
-        embeds.addAll(games)
+        embeds = games.toMutableList()
 
         username = "Epic Games Reporter"
         avatarUrl = googleLogo

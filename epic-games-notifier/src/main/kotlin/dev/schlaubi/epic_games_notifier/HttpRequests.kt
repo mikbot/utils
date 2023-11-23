@@ -33,10 +33,10 @@ object HttpRequests {
         val now = Clock.System.now()
 
         return allGames.filter {
-            val promotions = it.promotions?.promotionalOffers?.flatMap { it.promotionalOffers } ?: return@filter false
+            val promotions = it.promotions?.promotionalOffers?.flatMap(Promotions::promotionalOffers) ?: return@filter false
             val promotion = promotions.firstOrNull() ?: return@filter false
 
-            now >= promotion.startDate && now <= promotion.endDate
+            now >= promotion.startDate && now <= (promotion.endDate ?: return@filter false)
         }
     }
 

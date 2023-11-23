@@ -20,11 +20,14 @@ fun Game.toEmbed(): EmbedBuilder = embed {
         value = price.totalPrice.fmtPrice.originalPrice
     }
 
-    field {
-        name = "Available Until"
-        value = promotions!!.promotionalOffers.flatMap { it.promotionalOffers }.first().endDate
-            .toMessageFormat(DiscordTimestampStyle.LongDate)
+    val endDate =promotions!!.promotionalOffers.flatMap { it.promotionalOffers }.first().endDate
+    if (endDate != null) {
+        field {
+            name = "Available Until"
+            value = endDate.toMessageFormat(DiscordTimestampStyle.LongDate)
+        }
     }
+
 
     image = (keyImages.firstOrNull { it.type == "OfferImageWide" } ?: keyImages.first()).url.encodeURLQueryComponent()
     val thumbnail = keyImages.firstOrNull { it.type == "Thumbnail" }?.url
