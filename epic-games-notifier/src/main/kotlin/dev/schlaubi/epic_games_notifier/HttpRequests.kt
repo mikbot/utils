@@ -26,8 +26,6 @@ object HttpRequests {
     suspend fun fetchFreeGames(): List<Game> {
         val allGames = client.get(endpoint) {
             parameter("locale", Config.COUNTRY_CODE.lowercase())
-            parameter("country", Config.COUNTRY_CODE)
-            parameter("allowCountries", Config.COUNTRY_CODE)
         }.body<EpicGamesResponse<CatalogContainer>>().data.catalog.searchStore.elements
 
         val now = Clock.System.now()
