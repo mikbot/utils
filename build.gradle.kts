@@ -1,11 +1,9 @@
-import kotlin.io.path.div
-
 plugins {
     dev.schlaubi.mikbot.`gradle-plugin`
 }
 
 allprojects {
-    group = "dev.schlaubi.tonbrett"
+    group = "dev.schlaubi.utils"
 
     repositories {
         mavenCentral()

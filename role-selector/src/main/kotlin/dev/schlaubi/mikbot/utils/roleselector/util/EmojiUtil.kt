@@ -2,6 +2,7 @@ package dev.schlaubi.mikbot.utils.roleselector.util
 
 import dev.kord.common.entity.DiscordPartialEmoji
 import dev.kord.common.entity.optional.optional
+import dev.kord.core.entity.Emoji
 import dev.kord.core.entity.GuildEmoji
 
 
@@ -22,10 +23,11 @@ import dev.kord.core.entity.GuildEmoji
 //    } else null
 //}
 
-fun GuildEmoji?.toPartialEmoji(): DiscordPartialEmoji? {
+fun Emoji?.toPartialEmoji(): DiscordPartialEmoji? {
+    val guildEmoji = this as? GuildEmoji
     return if (this != null) DiscordPartialEmoji(
-        id = id,
+        id = guildEmoji?.id,
         name = name,
-        animated = isAnimated.optional()
+        animated = (guildEmoji?.isAnimated == true).optional()
     ) else null
 }

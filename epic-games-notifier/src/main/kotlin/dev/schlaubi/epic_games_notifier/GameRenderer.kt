@@ -12,7 +12,7 @@ fun Game.toEmbed(): EmbedBuilder = embed {
     url = if (offerType == "BUNDLE") {
         "https://www.epicgames.com/store/${Config.COUNTRY_CODE.lowercase()}/bundles/$productSlug"
     } else {
-        "https://www.epicgames.com/store/${Config.COUNTRY_CODE.lowercase()}/p/$urlSlug"
+        "https://www.epicgames.com/store/${Config.COUNTRY_CODE.lowercase()}/p/${productSlug ?: urlSlug}"
     }
 
     field {
