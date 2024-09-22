@@ -16,4 +16,3 @@ jobs:
     uses: mikbot/mikbot-workflow/.github/workflows/mikbot-workflow.yml@v1.6.1
     secrets:
       GCP_ACCOUNT_KEY: ${{ secrets.GCP_ACCOUNT_KEY }}
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
