@@ -5,6 +5,7 @@ import com.kotlindiscord.kord.extensions.commands.converters.impl.channel
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import dev.kord.common.entity.ChannelType
+import dev.kord.common.entity.InteractionContextType
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.channel.asChannelOf
 import dev.kord.core.entity.channel.MessageChannel
@@ -20,7 +21,10 @@ class NewChannelArgs : Arguments() {
 suspend fun Extension.newChannelCommand() = ephemeralSlashCommand(::NewChannelArgs) {
     name = "new-gpt-channel"
     description = "commands.new_gpt_channel.description"
+
+    allowedContexts.add(InteractionContextType.Guild)
     requirePermission(Permission.ManageChannels)
+    requireBotPermissions(Permission.ManageChannels)
 
     action {
         createConversation(arguments.channel.asChannelOf<MessageChannel>())

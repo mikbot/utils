@@ -20,6 +20,8 @@ suspend fun LeaderBoardModule.rankCommand() = publicSlashCommand(::RankArguments
     name = "rank"
     description = "commands.rank.description"
 
+    leaderboardContext()
+
     action {
         val target = (arguments.target ?: user).asMember(safeGuild.id)
         val profile = LeaderBoardDatabase.leaderboardEntries.findByMember(target)

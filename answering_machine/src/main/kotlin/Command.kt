@@ -13,6 +13,7 @@ import com.kotlindiscord.kord.extensions.utils.suggestStringMap
 import dev.kord.common.entity.ButtonStyle
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.interaction.response.edit
+import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import dev.schlaubi.mikbot.plugin.api.util.discordError
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
@@ -77,9 +78,9 @@ suspend fun Extension.addAnsweringMachine() = ephemeralSlashCommand(::AddAnsweri
     name = "add-answering-machine"
     description = "commands.add_answering_machine.description"
 
-    requirePermission(Permission.ManageGuild)
+    guildAdminOnly()
+
     requireBotPermissions(Permission.ManageMessages)
-    allowInDms = false
 
     action { input ->
         val response = interactionResponse
@@ -141,8 +142,7 @@ suspend fun Extension.deleteAnsweringMachine() = ephemeralSlashCommand(::DeleteA
     name = "delete-answering-machine"
     description = "commands.delete_answering_machine.description"
 
-    allowInDms = false
-    requirePermission(Permission.ManageGuild)
+    guildAdminOnly()
 
     action {
         AnsweringMachineDatabase.regexes.deleteOneById(ObjectId(arguments.machine))

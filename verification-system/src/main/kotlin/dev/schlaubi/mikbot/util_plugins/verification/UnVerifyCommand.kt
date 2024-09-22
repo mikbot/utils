@@ -1,6 +1,7 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
 import com.kotlindiscord.kord.extensions.commands.Arguments
+import com.kotlindiscord.kord.extensions.commands.application.slash.converters.impl.defaultingEnumChoice
 import com.kotlindiscord.kord.extensions.commands.converters.impl.snowflake
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import dev.schlaubi.mikbot.plugin.api.owner.OwnerModule
@@ -9,15 +10,22 @@ import dev.schlaubi.mikbot.plugin.api.util.confirmation
 
 class VerificationArguments : Arguments() {
     val guildId by snowflake {
-        name = "guild_id"
-        description = "The guild id to toggle the verification status on"
+        name = "id"
+        description = "The id of the entity to authorize"
+    }
+
+    val type by defaultingEnumChoice<InviteType> {
+        name = "type"
+        description = "The type of invite"
+        defaultValue = InviteType.GUILD
+        typeName = "InviteType"
     }
 }
 
 suspend fun OwnerModule.unVerifyCommand() =
     ephemeralSlashCommand(::VerificationArguments) {
         name = "un-verify"
-        description = "Removes the verification status from a Guild"
+        description = "Removes the verification status from a Guild or user"
 
         ownerOnly()
 

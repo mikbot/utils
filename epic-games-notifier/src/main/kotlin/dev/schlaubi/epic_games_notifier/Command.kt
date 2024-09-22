@@ -5,6 +5,7 @@ import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import dev.kord.common.entity.Permission
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsExtensionPoint
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsModule
+import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import io.ktor.http.*
 import org.pf4j.Extension
 
@@ -19,9 +20,11 @@ suspend fun SettingsModule.notifierCommand() = ephemeralSlashCommand {
     name = "epic-games-notifier"
     description = "commands.epic_games_notifier.description"
     bundle = "epic-games-notifier"
+    guildAdminOnly()
 
     check {
         hasPermission(Permission.ManageWebhooks)
+        requireBotPermissions(Permission.ManageWebhooks)
     }
 
     action {

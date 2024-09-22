@@ -12,7 +12,7 @@ suspend fun OwnerModule.inviteCommand() = ephemeralSlashCommand(::VerificationAr
     ownerOnly()
 
     action {
-        val invite = Invitation(newId(), arguments.guildId)
+        val invite = Invitation(newId(), arguments.guildId, arguments.type)
         VerificationDatabase.invites.save(invite)
 
         respond {

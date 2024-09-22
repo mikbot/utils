@@ -4,6 +4,7 @@ import dev.schlaubi.mikbot.plugin.api.EnvironmentConfig
 
 object Config : EnvironmentConfig("") {
     val BOTBLOCK_DELAY by getEnv(10) { it.toInt() }
+    @OptIn(ExperimentalStdlibApi::class)
     val SUPPORTED_BOT_LISTS by getEnv {
         it.split(",\\s*".toRegex()).map { listName ->
             it to buildString(listName.length) {

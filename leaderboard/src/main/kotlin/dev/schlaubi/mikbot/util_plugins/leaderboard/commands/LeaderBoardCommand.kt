@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.toList
 suspend fun LeaderBoardModule.leaderBoardCommand() = publicSlashCommand {
     name = "leaderboard"
     description = "commands.leaderboard.description"
+    leaderboardContext()
 
     action {
         val leaderboard = LeaderBoardDatabase.leaderboardEntries.leaderboardForGuild(safeGuild.id)

@@ -40,17 +40,16 @@ data class UpdateServerCountRequest(
 
 suspend fun Kord.postStats(tokens: Map<String, String>) {
     client.post("https://botblock.org/api/count") {
-        val allGuilds = guilds.toList()
+        val totalGuildCount = rest.application.getCurrentApplicationInfo().approximateGuildCount.orElse(0)
+        val shardGuilds = guilds.toList()
 
-        val byShard = allGuilds
+        val byShard = shardGuilds
             .groupBy { it.gateway }
             .map { (_, value) -> value.size.toLong() }
 
-        contentType(
-            ContentType.Application.Json
-        )
+        contentType(ContentType.Application.Json)
         setBody(UpdateServerCountRequest(
-            allGuilds.size.toLong(),
+            totalGuildCount.toLong(),
             selfId.toString(),
             byShard,
             tokens

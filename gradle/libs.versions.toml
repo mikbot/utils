@@ -1,21 +1,26 @@
 [versions]
-kotlin = "2.0.0"
-mikbot = "3.33.0"
+kotlin = "2.0.20"
+mikbot = "3.37.1"
+botblock = "6.7.4_347"
 
 [libraries]
 # Gradle plugins
 mikbot-gradle-plugin = { group = "dev.schlaubi", name = "gradle-plugin", version.ref = "mikbot" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "2.0.0-1.0.21" }
+ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "2.0.20-1.0.25" }
 
 mikbot-ktor = { group = "dev.schlaubi", name = "mikbot-ktor" }
 mikbot-gdpr = { group = "dev.schlaubi", name = "mikbot-gdpr" }
 mikbot-haste-client = { group = "dev.schlaubi", name = "mikbot-haste-client" }
 
 rhino = { group = "org.mozilla", name = "rhino", version = "1.7.15" }
-kordex-processor = { group = "com.kotlindiscord.kord.extensions", name = "annotation-processor", version = "1.8.1-SNAPSHOT" }
 kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "5.1.0" }
+
+botblock-core = { group = "org.botblock", name = "javabotblockapi-core", version.ref = "botblock" }
+botblock-rest = { group = "org.botblock", name = "javabotblockapi-request", version.ref = "botblock" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
+[bundles]
+botblock = ["botblock-core", "botblock-rest"]

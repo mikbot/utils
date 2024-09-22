@@ -14,6 +14,7 @@ import dev.kord.core.behavior.channel.asChannelOf
 import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.entity.channel.thread.ThreadChannel
 import dev.kord.core.entity.interaction.GuildInteraction
+import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -58,6 +59,8 @@ suspend fun Extension.mirrorChannelCommand() = ephemeralSlashCommand(::MirrorCha
     name = "mirror"
     description = "commands.mirror_channel.description"
 
+    guildAdminOnly()
+
     check {
         isInThread()
         requireBotPermissions(Permission.ManageChannels)
@@ -85,6 +88,8 @@ suspend fun Extension.mirrorChannelCommand() = ephemeralSlashCommand(::MirrorCha
 suspend fun Extension.unMirrorChannelCommand() = ephemeralSlashCommand(::UnMirrorChannelArgs) {
     name = "un-mirror"
     description = "commands.unmirror_channel.description"
+
+    guildAdminOnly()
 
     action {
         val item = BrieftaubeDatabase.channels.findOneById(ObjectId(arguments.channel))

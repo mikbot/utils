@@ -9,7 +9,6 @@ version = "3.3.0"
 dependencies {
     implementation(libs.rhino)
     implementation(mikbot(libs.mikbot.haste.client))
-    ksp(libs.kordex.processor)
 }
 
 mikbotPlugin {

@@ -8,4 +8,8 @@ import org.litote.kmongo.Id
 
 @Serializable
 
-data class Invitation(@SerialName("_id") @Contextual val id: Id<Invitation>, val guildId: Snowflake)
+data class Invitation(
+    @SerialName("_id") @Contextual val id: Id<Invitation>,
+    val guildId: Snowflake,
+    val type: InviteType = InviteType.GUILD
+)
