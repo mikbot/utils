@@ -1,7 +1,6 @@
 [versions]
 kotlin = "2.0.20"
-mikbot = "3.37.1"
-botblock = "6.7.4_347"
+mikbot = "3.37.3"
 
 [libraries]
 # Gradle plugins
@@ -15,9 +14,6 @@ mikbot-haste-client = { group = "dev.schlaubi", name = "mikbot-haste-client" }
 
 rhino = { group = "org.mozilla", name = "rhino", version = "1.7.15" }
 kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "5.1.0" }
-
-botblock-core = { group = "org.botblock", name = "javabotblockapi-core", version.ref = "botblock" }
-botblock-rest = { group = "org.botblock", name = "javabotblockapi-request", version.ref = "botblock" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

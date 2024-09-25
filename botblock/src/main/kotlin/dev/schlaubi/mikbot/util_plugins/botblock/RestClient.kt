@@ -1,6 +1,7 @@
 package dev.schlaubi.mikbot.util_plugins.botblock
 
 import dev.kord.core.Kord
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -10,6 +11,8 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.flow.toList
 import kotlinx.serialization.json.*
 import kotlin.time.Duration.Companion.minutes
+
+private val LOG = KotlinLogging.logger { }
 
 private val client = HttpClient {
     install(ContentNegotiation) {
@@ -39,7 +42,7 @@ data class UpdateServerCountRequest(
 }
 
 suspend fun Kord.postStats(tokens: Map<String, String>) {
-    client.post("https://botblock.org/api/count") {
+    val response = client.post("https://botblock.org/api/count") {
         val totalGuildCount = rest.application.getCurrentApplicationInfo().approximateGuildCount.orElse(0)
         val shardGuilds = guilds.toList()
 
@@ -55,4 +58,5 @@ suspend fun Kord.postStats(tokens: Map<String, String>) {
             tokens
         ).toJsonElement())
     }
+    LOG.warn {"Submitting bot tokens response was ${response.status}"}
 }

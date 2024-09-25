@@ -3,11 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "3.4.0"
-
-repositories {
-    maven("https://repo.codemc.io/repository/maven-public")
-}
+version = "3.4.1"
 
 dependencies {
     implementation(libs.bundles.botblock)
