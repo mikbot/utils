@@ -17,6 +17,3 @@ kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-seria
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-
-[bundles]
-botblock = ["botblock-core", "botblock-rest"]
