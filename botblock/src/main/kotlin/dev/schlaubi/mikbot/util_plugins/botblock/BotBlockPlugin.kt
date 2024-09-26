@@ -48,12 +48,14 @@ class BotBlockExtension : Extension() {
         }
 
         scope.launch {
-            try {
-                reporter.report()
-            } catch (e: KtorRequestException) {
-                LOG.error(e) { "Could not post stats" }
+            while (isActive) {
+                delay(Config.BOTBLOCK_DELAY.minutes)
+                try {
+                    reporter.report()
+                } catch (e: KtorRequestException) {
+                    LOG.error(e) { "Could not post stats" }
+                }
             }
-            delay(Config.BOTBLOCK_DELAY.minutes)
         }
     }
 
