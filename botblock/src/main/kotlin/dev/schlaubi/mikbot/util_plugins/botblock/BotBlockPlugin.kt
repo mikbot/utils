@@ -41,9 +41,15 @@ class BotBlockExtension : Extension() {
     }
 
     private fun startLoop() {
+        val reporter = if (System.getenv("ENABLE_SCALING") == "true") {
+            MultiNodeReporter(scope, kord, botTokens)
+        } else {
+            SingleNodeReporter(kord, botTokens)
+        }
+
         scope.launch {
             try {
-                kord.postStats(botTokens)
+                reporter.report()
             } catch (e: KtorRequestException) {
                 LOG.error(e) { "Could not post stats" }
             }

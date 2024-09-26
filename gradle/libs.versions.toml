@@ -11,9 +11,13 @@ ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-grad
 mikbot-ktor = { group = "dev.schlaubi", name = "mikbot-ktor" }
 mikbot-gdpr = { group = "dev.schlaubi", name = "mikbot-gdpr" }
 mikbot-haste-client = { group = "dev.schlaubi", name = "mikbot-haste-client" }
+mikbot-kubernetes = { group = "dev.schlaubi", name = "mikbot-kubernetes" }
 
 rhino = { group = "org.mozilla", name = "rhino", version = "1.7.15" }
 kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "5.1.0" }
+
+lettuce = { group = "io.lettuce", name = "lettuce-core", version = "6.4.0.RELEASE" }
+kotlinx-coroutines-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version = "1.7.3" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
