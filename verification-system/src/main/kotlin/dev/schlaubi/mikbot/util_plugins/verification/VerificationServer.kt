@@ -94,7 +94,6 @@ class VerificationServer : KtorExtensionPoint, KordExKoinComponent {
                 call.respondRedirect(authorizeUrl)
             }
 
-            @OptIn(InternalAPI::class)
             get<Thanks> { (state, code) ->
                 val invitation = states[state] ?: notFound()
                 VerificationDatabase.invites.deleteOneById(invitation.id)
@@ -114,7 +113,7 @@ class VerificationServer : KtorExtensionPoint, KordExKoinComponent {
                         append("redirect_uri", redirectUri)
                     }
 
-                    body = FormDataContent(data)
+                    setBody( FormDataContent(data))
                 }
                 if (response.status.value in 200..299) {
                     response.validateInformation(invitation)

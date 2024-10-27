@@ -47,11 +47,11 @@ class KtorServer : KtorExtensionPoint, KordExKoinComponent {
             get<LeaderBoard.ForGuild> { (id) ->
                 val snowflake = Snowflake(id)
                 val guild =
-                    runCatching { kord.getGuildOrNull(snowflake) }.getOrNull() ?: return@get context.respond(HttpStatusCode.NotFound)
+                    runCatching { kord.getGuildOrNull(snowflake) }.getOrNull() ?: return@get call.respond(HttpStatusCode.NotFound)
                 val members = guild.members.toList().associateBy(Member::id)
                 val leaderboard = LeaderBoardDatabase.leaderboardEntries.leaderboardForGuild(snowflake).toList()
 
-                context.respond(
+                call.respond(
                     LeaderBoardEntity(
                         guild.name,
                         guild.icon?.cdnUrl?.toUrl { format = Image.Format.WEBP },
@@ -68,7 +68,7 @@ class KtorServer : KtorExtensionPoint, KordExKoinComponent {
                     LeaderBoardEntry::userId eq Snowflake(userId)
                 ).toList()
 
-                context.respond(MultiGuildMember(
+                call.respond(MultiGuildMember(
                     entries.associate {
                         val member = kord.getGuildOrNull(it.guildId)?.getMemberOrNull(it.userId)
 

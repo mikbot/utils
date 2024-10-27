@@ -34,12 +34,12 @@ class KtorServer : KtorExtensionPoint {
             get<TimeZone> { (key, zone) ->
                 if (zone != null) {
                     val deferred =
-                        lock.withLock { requestStore[key] } ?: return@get context.respond(HttpStatusCode.NotFound)
+                        lock.withLock { requestStore[key] } ?: return@get call.respond(HttpStatusCode.NotFound)
                     val timeZone = runCatching { DatetimeTimeZone.of(zone) }.getOrElse { DatetimeTimeZone.UTC }
                     deferred.complete(timeZone)
-                    context.respondText("Thank you for using our time zone detection service, your new iPhone will not be sent to your address shortly")
+                    call.respondText("Thank you for using our time zone detection service, your new iPhone will not be sent to your address shortly")
                 } else {
-                    context.respondHtml {
+                    call.respondHtml {
                         head {
                             title("TimeZone detection service")
                         }
