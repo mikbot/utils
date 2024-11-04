@@ -1,18 +1,20 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import com.kotlindiscord.kord.extensions.commands.application.slash.converters.ChoiceEnum
-import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
+import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.common.entity.ApplicationIntegrationType
 import dev.kord.common.entity.Snowflake
+import dev.kordex.core.i18n.types.Key
 import dev.schlaubi.mikbot.plugin.api.io.getCollection
 import dev.schlaubi.mikbot.plugin.api.util.database
+import dev.schlaubi.mikbot.utils.translations.VerificationSystemTranslations
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class InviteType(val integrationType: ApplicationIntegrationType, override val readableName: String) : ChoiceEnum {
-    GUILD(ApplicationIntegrationType.GuildInstall, "Guild"),
-    USER(ApplicationIntegrationType.UserInstall, "User")
+enum class InviteType(val integrationType: ApplicationIntegrationType, override val readableName: Key) : ChoiceEnum {
+    GUILD(ApplicationIntegrationType.GuildInstall, VerificationSystemTranslations.Verification.Type.guild),
+    USER(ApplicationIntegrationType.UserInstall, VerificationSystemTranslations.Verification.Type.user)
 }
 
 object VerificationDatabase : KordExKoinComponent {

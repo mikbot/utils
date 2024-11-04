@@ -1,11 +1,13 @@
 package dev.schlaubi.epic_games_notifier
 
-import com.kotlindiscord.kord.extensions.checks.hasPermission
-import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import dev.kord.common.entity.Permission
+import dev.kordex.core.checks.hasPermission
+import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsExtensionPoint
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsModule
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
+import dev.schlaubi.mikbot.plugin.api.util.translate
+import dev.schlaubi.mikbot.utils.translations.EpicGamesNotifierTranslations
 import io.ktor.http.*
 import org.pf4j.Extension
 
@@ -17,9 +19,8 @@ class EpicGamesNotifierSettingsExtension : SettingsExtensionPoint {
 }
 
 suspend fun SettingsModule.notifierCommand() = ephemeralSlashCommand {
-    name = "epic-games-notifier"
-    description = "commands.epic_games_notifier.description"
-    bundle = "epic-games-notifier"
+    name = EpicGamesNotifierTranslations.Commands.Enable.name
+    description = EpicGamesNotifierTranslations.Commands.Enable.description
     guildAdminOnly()
 
     check {
@@ -35,7 +36,7 @@ suspend fun SettingsModule.notifierCommand() = ephemeralSlashCommand {
                 parameters.append("response_type", "code")
                 parameters.append("scope", "webhook.incoming")
             }.buildString()
-            content = translate("commands.enable.description", "epic-games-notifier", arrayOf(url))
+            content = translate(EpicGamesNotifierTranslations.Commands.EpicGamesNotifier.description, url)
         }
     }
 }

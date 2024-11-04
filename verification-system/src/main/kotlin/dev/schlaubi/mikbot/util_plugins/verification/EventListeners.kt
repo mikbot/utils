@@ -1,6 +1,6 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import com.kotlindiscord.kord.extensions.extensions.event
+import dev.kordex.core.extensions.event
 import dev.kord.core.behavior.GuildBehavior
 import dev.kord.core.entity.Guild
 import dev.kord.core.event.gateway.ReadyEvent

@@ -1,20 +1,24 @@
 package dev.schlaubi.mikbot.util_plugins.answering_machine
 
-import com.kotlindiscord.kord.extensions.checks.guildFor
-import com.kotlindiscord.kord.extensions.commands.Arguments
-import com.kotlindiscord.kord.extensions.commands.converters.impl.defaultingBoolean
-import com.kotlindiscord.kord.extensions.commands.converters.impl.string
-import com.kotlindiscord.kord.extensions.components.components
-import com.kotlindiscord.kord.extensions.components.ephemeralButton
-import com.kotlindiscord.kord.extensions.components.forms.ModalForm
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
-import com.kotlindiscord.kord.extensions.utils.suggestStringMap
+import dev.kordex.core.checks.guildFor
+import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.converters.impl.defaultingBoolean
+import dev.kordex.core.commands.converters.impl.string
+import dev.kordex.core.components.components
+import dev.kordex.core.components.ephemeralButton
+import dev.kordex.core.components.forms.ModalForm
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.ephemeralSlashCommand
+import dev.kordex.core.utils.suggestStringMap
 import dev.kord.common.entity.ButtonStyle
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.interaction.response.edit
+import dev.kordex.core.i18n.toKey
+import dev.kordex.core.i18n.types.Key
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import dev.schlaubi.mikbot.plugin.api.util.discordError
+import dev.schlaubi.mikbot.plugin.api.util.translate
+import dev.schlaubi.mikbot.utils.translations.AnsweringMachineTranslations
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -24,41 +28,41 @@ import java.util.regex.PatternSyntaxException
 
 class AddAnsweringMachineArgs : Arguments() {
     val pattern by string {
-        name = "pattern"
-        description = "commands.add_answering_machine.arguments.pattern.description"
+        name = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.Pattern.name
+        description = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.Pattern.description
     }
 
     val replacement by string {
-        name = "replacement"
-        description = "commands.add_answering_machine.arguments.replacement.description"
+        name = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.Replacement.name
+        description = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.Replacement.description
     }
 
     val delete by defaultingBoolean {
-        name = "delete"
-        description = "commands.add_answering_machine.arguments.delete.description"
+        name = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.Delete.name
+        description = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.Delete.description
 
         defaultValue = false
     }
 
     val ignoreCase by defaultingBoolean {
-        name = "ignore-case"
-        description = "commands.add_answering_machine.arguments.ignore_case.description"
+        name = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.IgnoreCase.name
+        description = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Arguments.IgnoreCase.description
         defaultValue = true
     }
 }
 
 class TestInputModal : ModalForm() {
-    override var title: String = "Test your input"
+    override var title: Key = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Modals.Test.tile
 
     val testInput = lineText {
-        label = "Test Message"
+        label = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Modals.Test.Fields.Text.label
     }
 }
 
 class DeleteAnsweringMachineArgs : Arguments() {
     val machine by string {
-        name = "pattern"
-        description = "commands.delete_answering_machine.arguments.machine.description"
+        name = AnsweringMachineTranslations.Commands.DeleteAnsweringMachine.Arguments.Machine.name
+        description = AnsweringMachineTranslations.Commands.DeleteAnsweringMachine.Arguments.Machine.description
 
         autoComplete { event ->
             val answers = AnsweringMachineDatabase.regexes
@@ -75,8 +79,8 @@ class DeleteAnsweringMachineArgs : Arguments() {
 }
 
 suspend fun Extension.addAnsweringMachine() = ephemeralSlashCommand(::AddAnsweringMachineArgs, ::TestInputModal) {
-    name = "add-answering-machine"
-    description = "commands.add_answering_machine.description"
+    name = AnsweringMachineTranslations.Commands.AddAnsweringMachine.name
+    description = AnsweringMachineTranslations.Commands.AddAnsweringMachine.description
 
     guildAdminOnly()
 
@@ -91,19 +95,18 @@ suspend fun Extension.addAnsweringMachine() = ephemeralSlashCommand(::AddAnsweri
                 arguments.pattern.toRegex()
             }
         } catch (e: PatternSyntaxException) {
-            discordError(e.message!!)
+            discordError(e.message!!.toKey())
         }
         val replacement = input!!.testInput.value!!.replace(regex, arguments.replacement)
 
 
         respond {
-            content = translate("commands.add_answering_machine.confirmation.received", arrayOf(replacement))
+            content = translate(AnsweringMachineTranslations.Commands.AddAnsweringMachine.Confirmation.received, replacement)
 
             components {
                 ephemeralButton {
-                    bundle = "answering_machine"
                     style = ButtonStyle.Success
-                    label = translate("commands.add_answering_machine.confirmation.confirm")
+                    label = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Confirmation.confirm
                     action {
                         val entity = AnswerRegex(
                             guildId = guild!!.id,
@@ -114,7 +117,7 @@ suspend fun Extension.addAnsweringMachine() = ephemeralSlashCommand(::AddAnsweri
                         AnsweringMachineDatabase.regexes.save(entity)
 
                         response.edit {
-                            content = translate("commands.add_answering_machine.created")
+                            content = translate(AnsweringMachineTranslations.Commands.AddAnsweringMachine.created)
                             components = mutableListOf()
                         }
                     }
@@ -122,13 +125,12 @@ suspend fun Extension.addAnsweringMachine() = ephemeralSlashCommand(::AddAnsweri
                 }
 
                 ephemeralButton {
-                    bundle = "answering_machine"
                     style = ButtonStyle.Danger
-                    label = translate("commands.add_answering_machine.confirmation.decline")
+                    label = AnsweringMachineTranslations.Commands.AddAnsweringMachine.Confirmation.decline
 
                     action {
                         response.edit {
-                            content = translate("commands.add_answering_machine.declined")
+                            content = translate(AnsweringMachineTranslations.Commands.AddAnsweringMachine.declined)
                             components = mutableListOf()
                         }
                     }
@@ -139,8 +141,8 @@ suspend fun Extension.addAnsweringMachine() = ephemeralSlashCommand(::AddAnsweri
 }
 
 suspend fun Extension.deleteAnsweringMachine() = ephemeralSlashCommand(::DeleteAnsweringMachineArgs) {
-    name = "delete-answering-machine"
-    description = "commands.delete_answering_machine.description"
+    name = AnsweringMachineTranslations.Commands.DeleteAnsweringMachine.name
+    description = AnsweringMachineTranslations.Commands.DeleteAnsweringMachine.description
 
     guildAdminOnly()
 
@@ -148,7 +150,7 @@ suspend fun Extension.deleteAnsweringMachine() = ephemeralSlashCommand(::DeleteA
         AnsweringMachineDatabase.regexes.deleteOneById(ObjectId(arguments.machine))
 
         respond {
-            content = translate("commands.delete_answering_machine.success")
+            content = translate(AnsweringMachineTranslations.Commands.DeleteAnsweringMachine.success)
         }
     }
 }

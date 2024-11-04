@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "3.4.0"
+version = "4.0.0"
 
 dependencies {
     optionalPlugin(mikbot(libs.mikbot.gdpr))

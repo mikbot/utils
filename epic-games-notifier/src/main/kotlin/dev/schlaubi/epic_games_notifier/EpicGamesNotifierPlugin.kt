@@ -1,10 +1,10 @@
 package dev.schlaubi.epic_games_notifier
 
-import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
-import com.kotlindiscord.kord.extensions.extensions.Extension
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.rest.builder.message.EmbedBuilder
+import dev.kordex.core.builders.ExtensionsBuilder
+import dev.kordex.core.extensions.Extension
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginContext
 import dev.schlaubi.mikbot.plugin.api.PluginMain
@@ -72,7 +72,7 @@ class EpicGamesNotifierModule : Extension(), CoroutineScope {
 
 @PluginMain
 class EpicGamesNotifierPlugin(wrapper: PluginContext) : Plugin(wrapper) {
-    override fun ExtensibleBotBuilder.ExtensionsBuilder.addExtensions() {
+    override fun ExtensionsBuilder.addExtensions() {
         add(::EpicGamesNotifierModule)
     }
 }

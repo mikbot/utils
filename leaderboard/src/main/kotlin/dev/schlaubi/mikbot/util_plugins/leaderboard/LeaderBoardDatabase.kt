@@ -1,6 +1,6 @@
 package dev.schlaubi.mikbot.util_plugins.leaderboard
 
-import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.MemberBehavior
 import dev.schlaubi.mikbot.plugin.api.io.getCollection

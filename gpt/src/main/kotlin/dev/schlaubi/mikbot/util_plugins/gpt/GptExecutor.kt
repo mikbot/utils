@@ -1,8 +1,8 @@
 package dev.schlaubi.mikbot.util_plugins.gpt
 
-import com.kotlindiscord.kord.extensions.checks.isNotBot
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.event
+import dev.kordex.core.checks.isNotBot
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.event
 import dev.kord.core.behavior.channel.withTyping
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent

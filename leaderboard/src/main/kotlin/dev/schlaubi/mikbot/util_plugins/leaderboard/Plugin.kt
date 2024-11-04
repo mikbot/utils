@@ -1,6 +1,6 @@
 package dev.schlaubi.mikbot.util_plugins.leaderboard
 
-import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
+import dev.kordex.core.builders.ExtensionsBuilder
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginContext
 import dev.schlaubi.mikbot.plugin.api.PluginMain
@@ -13,7 +13,7 @@ import org.pf4j.Extension
 
 @PluginMain
 class LeaderBoardPlugin(wrapper: PluginContext) : Plugin(wrapper) {
-    override fun ExtensibleBotBuilder.ExtensionsBuilder.addExtensions() {
+    override fun ExtensionsBuilder.addExtensions() {
         add(::LeaderBoardModule)
     }
 }

@@ -1,9 +1,9 @@
 package dev.schlaubi.mikbot.util_plugins.botblock
 
-import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.rest.request.KtorRequestException
+import dev.kordex.core.builders.ExtensionsBuilder
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.event
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginContext
 import dev.schlaubi.mikbot.plugin.api.PluginMain
@@ -16,7 +16,7 @@ private val LOG = KotlinLogging.logger { }
 
 @PluginMain
 class BotBlockPlugin(wrapper: PluginContext) : Plugin(wrapper) {
-    override fun ExtensibleBotBuilder.ExtensionsBuilder.addExtensions() {
+    override fun ExtensionsBuilder.addExtensions() {
         add(::BotBlockExtension)
     }
 }

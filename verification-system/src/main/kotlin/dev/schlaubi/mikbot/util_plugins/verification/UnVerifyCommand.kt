@@ -1,31 +1,35 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import com.kotlindiscord.kord.extensions.commands.Arguments
-import com.kotlindiscord.kord.extensions.commands.application.slash.converters.impl.defaultingEnumChoice
-import com.kotlindiscord.kord.extensions.commands.converters.impl.snowflake
-import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
+import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.application.slash.converters.impl.defaultingEnumChoice
+import dev.kordex.core.commands.converters.impl.snowflake
+import dev.kordex.core.extensions.ephemeralSlashCommand
+import dev.kordex.core.i18n.EMPTY_KEY
+import dev.schlaubi.mikbot.plugin.api.MikBotTranslations
 import dev.schlaubi.mikbot.plugin.api.owner.OwnerModule
 import dev.schlaubi.mikbot.plugin.api.owner.ownerOnly
 import dev.schlaubi.mikbot.plugin.api.util.confirmation
+import dev.schlaubi.mikbot.plugin.api.util.translate
+import dev.schlaubi.mikbot.utils.translations.VerificationSystemTranslations
 
 class VerificationArguments : Arguments() {
     val guildId by snowflake {
-        name = "id"
-        description = "The id of the entity to authorize"
+        name = VerificationSystemTranslations.Arguments.Verification.Id.name
+        description = VerificationSystemTranslations.Arguments.Verification.Id.description
     }
 
     val type by defaultingEnumChoice<InviteType> {
-        name = "type"
-        description = "The type of invite"
+        name = VerificationSystemTranslations.Arguments.Verification.Type.name
+        description = VerificationSystemTranslations.Arguments.Verification.Type.description
         defaultValue = InviteType.GUILD
-        typeName = "InviteType"
+        typeName = EMPTY_KEY
     }
 }
 
 suspend fun OwnerModule.unVerifyCommand() =
     ephemeralSlashCommand(::VerificationArguments) {
-        name = "un-verify"
-        description = "Removes the verification status from a Guild or user"
+        name = VerificationSystemTranslations.Commands.UnVerify.name
+        description = VerificationSystemTranslations.Commands.UnVerify.description
 
         ownerOnly()
 
@@ -34,27 +38,27 @@ suspend fun OwnerModule.unVerifyCommand() =
 
             if (guild == null) {
                 respond {
-                    content = translate("command.verify.unknown_id")
+                    content = translate(VerificationSystemTranslations.Command.Verify.unknownId)
                 }
                 return@action
             }
 
             val botGuild = VerificationDatabase.collection.findOneById(guild.id)
             if (botGuild?.verified != true) {
-                respond { content = translate("command.verify.not_verified") }
+                respond { content = translate(VerificationSystemTranslations.Command.Verify.notVerified) }
                 return@action
             }
 
             val (confirmed) = confirmation {
                 content = translate(
-                    "command.verify.confirm",
+                    VerificationSystemTranslations.Command.Verify.confirm,
                     arrayOf(guild.name)
                 )
             }
 
             if (!confirmed) {
                 respond {
-                    translate("general.aborted", "general")
+                    translate(MikBotTranslations.General.aborted)
                 }
                 return@action
             }
@@ -63,7 +67,7 @@ suspend fun OwnerModule.unVerifyCommand() =
             guild.leave()
 
             respond {
-                content = translate("command.verify.success", arrayOf(guild.name))
+                content = translate(VerificationSystemTranslations.Command.Verify.success, arrayOf(guild.name))
             }
         }
     }

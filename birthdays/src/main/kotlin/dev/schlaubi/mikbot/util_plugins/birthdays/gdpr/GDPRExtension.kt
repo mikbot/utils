@@ -6,6 +6,8 @@ import dev.schlaubi.mikbot.core.gdpr.api.DataPoint
 import dev.schlaubi.mikbot.core.gdpr.api.GDPRExtensionPoint
 import dev.schlaubi.mikbot.core.gdpr.api.PermanentlyStoredDataPoint
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
+import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
+import kotlinx.datetime.atStartOfDayIn
 import org.pf4j.Extension
 
 @Extension
@@ -14,7 +16,7 @@ class GDPRExtension : GDPRExtensionPoint {
 }
 
 object BirthDateDataPoint :
-    PermanentlyStoredDataPoint("birthdays", "gdpr.title", "gdpr.description", "gdpr.sharing.description") {
+    PermanentlyStoredDataPoint(BirthdaysTranslations.Gdpr.title, BirthdaysTranslations.Gdpr.description, BirthdaysTranslations.Gdpr.Sharing.description) {
     override suspend fun deleteFor(user: User) {
         BirthdayDatabase.birthdays.deleteOneById(user.id)
     }
@@ -22,6 +24,6 @@ object BirthDateDataPoint :
     override suspend fun requestFor(user: User): List<String> {
         val birthdate = BirthdayDatabase.birthdays.findOneById(user.id)
 
-        return listOfNotNull(birthdate?.let { "${it.time.toMessageFormat()} - TimeZone: `${it.timeZone}`" })
+        return listOfNotNull(birthdate?.let { "${it.time.atStartOfDayIn(it.timeZone).toMessageFormat()} - TimeZone: `${it.timeZone}`" })
     }
 }

@@ -1,6 +1,6 @@
 package dev.schlaubi.epic_games_notifier
 
-import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.core.Kord
 import dev.schlaubi.mikbot.util_plugins.ktor.api.KtorExtensionPoint
 import io.ktor.resources.*

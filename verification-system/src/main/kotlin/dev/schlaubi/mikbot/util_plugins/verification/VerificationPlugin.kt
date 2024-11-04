@@ -1,8 +1,8 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
+import dev.kordex.core.builders.ExtensionsBuilder
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginContext
 import dev.schlaubi.mikbot.plugin.api.PluginMain
@@ -24,7 +24,7 @@ class VerificationModule : Extension() {
 class VerificationPlugin(wrapper: PluginContext) : Plugin(wrapper), CoroutineScope, KordExKoinComponent {
     override val coroutineContext: CoroutineContext = Dispatchers.IO + SupervisorJob()
 
-    override fun ExtensibleBotBuilder.ExtensionsBuilder.addExtensions() {
+    override fun ExtensionsBuilder.addExtensions() {
         add(::VerificationModule)
     }
 

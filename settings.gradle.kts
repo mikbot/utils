@@ -6,9 +6,7 @@ include(
     ":botblock",
     ":brieftaube",
     ":epic-games-notifier",
-//    ":eval",
     ":gpt",
     ":leaderboard",
-    ":role-selector",
     ":verification-system"
 )

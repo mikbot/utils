@@ -6,7 +6,9 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     gradlePluginPortal()
+    maven("https://releases-repo.kordex.dev")
 }
 
 dependencies {
@@ -18,11 +20,11 @@ dependencies {
 tasks {
     withType<KotlinCompile> {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_19
+            jvmTarget = JvmTarget.JVM_21
         }
     }
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_19
+    sourceCompatibility = JavaVersion.VERSION_21
 }

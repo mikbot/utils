@@ -1,34 +1,36 @@
 package dev.schlaubi.mikbot.util_plugins.leaderboard.commands
 
-import com.kotlindiscord.kord.extensions.commands.Arguments
-import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalChannel
-import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalString
-import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
+import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.converters.impl.optionalChannel
+import dev.kordex.core.commands.converters.impl.optionalString
+import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kord.common.entity.ChannelType
 import dev.kord.common.entity.Snowflake
 import dev.schlaubi.mikbot.plugin.api.settings.SettingsModule
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import dev.schlaubi.mikbot.plugin.api.util.safeGuild
+import dev.schlaubi.mikbot.plugin.api.util.translate
 import dev.schlaubi.mikbot.util_plugins.leaderboard.LeaderBoardDatabase
 import dev.schlaubi.mikbot.util_plugins.leaderboard.LeaderBoardSettings
+import dev.schlaubi.mikbot.utils.translations.LeaderboardTranslations
 
 class LeaderBoardSettingsArguments : Arguments() {
     val message by optionalString {
-        name = "message"
-        description = "The message sent when someone levels up"
+        name = LeaderboardTranslations.Commands.Settings.Arguments.Message.name
+        description = LeaderboardTranslations.Commands.Settings.Arguments.Message.description
     }
 
     val channel by optionalChannel {
-        name = "channel"
-        description = "The channel for level up messages"
+        name = LeaderboardTranslations.Commands.Settings.Arguments.Channel.name
+        description = LeaderboardTranslations.Commands.Settings.Arguments.Channel.description
         requiredChannelTypes.add(ChannelType.GuildText)
     }
 }
 
 suspend fun SettingsModule.leaderBoardCommand() =
     ephemeralSlashCommand(::LeaderBoardSettingsArguments) {
-        name = "leaderboard-settings"
-        description = "Allows you to change leaderboard settings"
+        name = LeaderboardTranslations.Commands.Settings.name
+        description = LeaderboardTranslations.Commands.Settings.description
 
         guildAdminOnly()
 
@@ -40,7 +42,7 @@ suspend fun SettingsModule.leaderBoardCommand() =
             LeaderBoardDatabase.settings.save(newSettings)
 
             respond {
-                content = translate("commands.settings.saved.title", "leaderboard")
+                content = translate(LeaderboardTranslations.Commands.Settings.Saved.title)
             }
         }
     }

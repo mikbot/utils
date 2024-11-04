@@ -4,12 +4,12 @@ import dev.kord.core.entity.User
 import dev.schlaubi.mikbot.core.gdpr.api.PermanentlyStoredDataPoint
 import dev.schlaubi.mikbot.util_plugins.leaderboard.LeaderBoardDatabase
 import dev.schlaubi.mikbot.util_plugins.leaderboard.LeaderBoardEntry
+import dev.schlaubi.mikbot.utils.translations.LeaderboardTranslations
 import org.litote.kmongo.eq
 
 object LeaderBoardDataPoint : PermanentlyStoredDataPoint(
-    "leaderboard",
-    "gdpr.name",
-    "gdpr.description"
+    LeaderboardTranslations.Gdpr.name,
+    LeaderboardTranslations.Gdpr.description
 ) {
     override suspend fun deleteFor(user: User) {
         LeaderBoardDatabase.leaderboardEntries.deleteMany(

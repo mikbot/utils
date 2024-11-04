@@ -1,6 +1,6 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.common.entity.DiscordPartialGuild
 import dev.kord.common.entity.DiscordUser
 import dev.kord.common.entity.Snowflake

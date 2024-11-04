@@ -5,30 +5,34 @@ import kotlinx.datetime.*
 import java.time.Month
 
 data class BirthdayContainer(
-    val birthday: Instant,
+    val birthday: LocalDate,
     val nextBirthday: Instant,
     val dayDifference: Int,
     val newAge: Int
 )
 
 fun UserBirthday.calculate(): BirthdayContainer {
-    val birthDay = time.toLocalDateTime(timeZone)
-    val offsetNow = Clock.System.now().toLocalDateTime(timeZone)
-    val thisYearBirthDay = birthDay.atYear(offsetNow.year)
-    val nextBirthday = if (thisYearBirthDay > offsetNow) {
+    val now = Clock.System.now()
+    val currentYear = now.toLocalDateTime(timeZone).year
+
+    val thisYearBirthDay = time.atYear(currentYear).atStartOfDayIn(timeZone)
+    val nextBirthday = if (thisYearBirthDay > now) {
         thisYearBirthDay
     } else {
-        birthDay.atYear(offsetNow.year + 1)
+        time.atYear(currentYear + 1).atStartOfDayIn(timeZone)
     }
-    val nextAge = time.yearsUntil(nextBirthday.toInstant(TimeZone.UTC), TimeZone.UTC)
-    val dayDifference = offsetNow.toInstant(timeZone).daysUntil(nextBirthday.toInstant(timeZone), timeZone)
 
-    return BirthdayContainer(time, nextBirthday.toInstant(TimeZone.UTC), dayDifference, nextAge)
+    val nextAge = time.atStartOfDayIn(timeZone).yearsUntil(nextBirthday, timeZone)
+    val dayDifference = now.daysUntil(nextBirthday, timeZone)
+
+    return BirthdayContainer(time, nextBirthday, dayDifference, nextAge)
 }
 
-private fun LocalDateTime.atYear(year: Int): LocalDateTime {
+fun LocalDate.atYear(year: Int): LocalDate {
     if (dayOfMonth == 29 && month == Month.FEBRUARY) { // handle leap years
-        return LocalDateTime(year, Month.MARCH, 1, hour, minute, second, nanosecond)
+        return LocalDate(year, Month.MARCH, 1)
     }
-    return LocalDateTime(year, month, dayOfMonth, hour, minute, second, nanosecond)
+    return LocalDate(year, month, dayOfMonth)
 }
+
+fun LocalDateTime.toLocalDate() = LocalDate(year, month, dayOfMonth)

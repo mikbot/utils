@@ -1,7 +1,7 @@
 package dev.schlaubi.mikbot.util_plugins.brieftaube
 
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.event
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.event
 import dev.kord.common.annotation.KordExperimental
 import dev.kord.common.annotation.KordUnsafe
 import dev.kord.core.behavior.execute

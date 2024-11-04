@@ -1,11 +1,13 @@
 package dev.schlaubi.mikbot.util_plugins.birthdays.commands
 
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.publicSlashCommand
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.publicSlashCommand
+import dev.kordex.core.i18n.toKey
+import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
 
 suspend fun Extension.birthdayCommand() = publicSlashCommand {
-    name = "birthdays"
-    description = "<unused>"
+    name = BirthdaysTranslations.Commands.Birthday.name
+    description = "<unused>".toKey()
 
     setCommand()
     listCommand()

@@ -1,13 +1,13 @@
 package dev.schlaubi.mikbot.util_plugins.brieftaube
 
-import com.kotlindiscord.kord.extensions.checks.guildFor
-import com.kotlindiscord.kord.extensions.checks.isInThread
-import com.kotlindiscord.kord.extensions.commands.Arguments
-import com.kotlindiscord.kord.extensions.commands.converters.impl.channel
-import com.kotlindiscord.kord.extensions.commands.converters.impl.string
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
-import com.kotlindiscord.kord.extensions.utils.suggestStringMap
+import dev.kordex.core.checks.guildFor
+import dev.kordex.core.checks.isInThread
+import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.converters.impl.channel
+import dev.kordex.core.commands.converters.impl.string
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.ephemeralSlashCommand
+import dev.kordex.core.utils.suggestStringMap
 import dev.kord.common.entity.ChannelType
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.channel.asChannelOf
@@ -15,6 +15,8 @@ import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.entity.channel.thread.ThreadChannel
 import dev.kord.core.entity.interaction.GuildInteraction
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
+import dev.schlaubi.mikbot.plugin.api.util.translate
+import dev.schlaubi.mikbot.utils.translations.BrieftaubeTranslations
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -23,8 +25,8 @@ import org.litote.kmongo.eq
 
 class MirrorChannelArgs : Arguments() {
     val channel by channel {
-        name = "channel"
-        description = "commands.mirror_channel.arguments.channel.description"
+        name = BrieftaubeTranslations.Commands.MirrorChannel.Arguments.Channel.name
+        description = BrieftaubeTranslations.Commands.MirrorChannel.Arguments.Channel.description
 
         requireChannelType(ChannelType.GuildText)
         requireChannelType(ChannelType.GuildNews)
@@ -33,8 +35,8 @@ class MirrorChannelArgs : Arguments() {
 
 class UnMirrorChannelArgs : Arguments() {
     val channel by string {
-        name = "channel"
-        description = "commands.unmirror_channel.arguments.channel.description"
+        name = BrieftaubeTranslations.Commands.UnmirrorChannel.Arguments.Channel.name
+        description = BrieftaubeTranslations.Commands.UnmirrorChannel.Arguments.Channel.description
 
         autoComplete {
             val items = BrieftaubeDatabase.channels
@@ -56,8 +58,8 @@ class UnMirrorChannelArgs : Arguments() {
 }
 
 suspend fun Extension.mirrorChannelCommand() = ephemeralSlashCommand(::MirrorChannelArgs) {
-    name = "mirror"
-    description = "commands.mirror_channel.description"
+    name = BrieftaubeTranslations.Commands.MirrorChannel.name
+    description = BrieftaubeTranslations.Commands.MirrorChannel.description
 
     guildAdminOnly()
 
@@ -80,14 +82,14 @@ suspend fun Extension.mirrorChannelCommand() = ephemeralSlashCommand(::MirrorCha
         BrieftaubeDatabase.channels.save(item)
 
         respond {
-            content = translate("commands.mirror_channel.success", arrayOf(arguments.channel.mention))
+            content = translate(BrieftaubeTranslations.Commands.MirrorChannel.success, arguments.channel.mention)
         }
     }
 }
 
 suspend fun Extension.unMirrorChannelCommand() = ephemeralSlashCommand(::UnMirrorChannelArgs) {
-    name = "un-mirror"
-    description = "commands.unmirror_channel.description"
+    name = BrieftaubeTranslations.Commands.UnmirrorChannel.name
+    description = BrieftaubeTranslations.Commands.UnmirrorChannel.description
 
     guildAdminOnly()
 
@@ -96,13 +98,13 @@ suspend fun Extension.unMirrorChannelCommand() = ephemeralSlashCommand(::UnMirro
 
         if (item == null) {
             respond {
-                content = translate("commands.unmirror_channel.not_found", arrayOf(arguments.channel))
+                content = translate(BrieftaubeTranslations.Commands.UnmirrorChannel.notFound, arguments.channel)
             }
             return@action
         }
 
         respond {
-            content = translate("commands.unmirror_channel.success")
+            content = translate(BrieftaubeTranslations.Commands.UnmirrorChannel.success)
         }
     }
 }

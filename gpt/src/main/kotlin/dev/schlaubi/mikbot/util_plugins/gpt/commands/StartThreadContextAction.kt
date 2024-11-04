@@ -1,13 +1,14 @@
 package dev.schlaubi.mikbot.util_plugins.gpt.commands
 
-import com.kotlindiscord.kord.extensions.checks.channelType
-import com.kotlindiscord.kord.extensions.extensions.Extension
-import com.kotlindiscord.kord.extensions.extensions.ephemeralMessageCommand
+import dev.kordex.core.checks.channelType
+import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.ephemeralMessageCommand
 import dev.kord.common.entity.ChannelType
 import dev.kord.core.behavior.channel.asChannelOf
+import dev.schlaubi.mikbot.utils.translations.DeppgptTranslations
 
 suspend fun Extension.startThreadContextAction() = ephemeralMessageCommand {
-    name = "commands.start_thread_action.name"
+    name = DeppgptTranslations.Commands.StartThread.name
 
     check {
         channelType(ChannelType.GuildText)

@@ -1,8 +1,8 @@
 package dev.schlaubi.mikbot.util_plugins.leaderboard.core
 
-import com.kotlindiscord.kord.extensions.checks.anyGuild
-import com.kotlindiscord.kord.extensions.checks.isNotBot
-import com.kotlindiscord.kord.extensions.extensions.event
+import dev.kordex.core.checks.anyGuild
+import dev.kordex.core.checks.isNotBot
+import dev.kordex.core.extensions.event
 import dev.kord.core.behavior.getChannelOfOrNull
 import dev.kord.core.entity.channel.GuildMessageChannel
 import dev.kord.core.event.message.MessageCreateEvent

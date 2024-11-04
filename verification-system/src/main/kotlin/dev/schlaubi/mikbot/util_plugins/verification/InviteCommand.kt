@@ -1,13 +1,14 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
+import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.schlaubi.mikbot.plugin.api.owner.OwnerModule
 import dev.schlaubi.mikbot.plugin.api.owner.ownerOnly
+import dev.schlaubi.mikbot.utils.translations.VerificationSystemTranslations
 import org.litote.kmongo.newId
 
 suspend fun OwnerModule.inviteCommand() = ephemeralSlashCommand(::VerificationArguments) {
-    name = "invite"
-    description = "Creates a bot Invite for a specific Guild"
+    name = VerificationSystemTranslations.Commands.Invite.name
+    description = VerificationSystemTranslations.Commands.Invite.description
 
     ownerOnly()
 

@@ -1,81 +1,94 @@
 package dev.schlaubi.mikbot.util_plugins.birthdays.commands
 
-import com.kotlindiscord.kord.extensions.commands.Arguments
-import com.kotlindiscord.kord.extensions.commands.application.slash.SlashCommand
-import com.kotlindiscord.kord.extensions.commands.application.slash.ephemeralSubCommand
-import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalString
 import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.asJavaLocale
 import dev.kord.common.toMessageFormat
 import dev.kord.core.behavior.interaction.followup.edit
 import dev.kord.rest.builder.message.embed
+import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.application.slash.SlashCommand
+import dev.kordex.core.commands.application.slash.ephemeralSubCommand
+import dev.kordex.core.commands.converters.impl.optionalString
 import dev.schlaubi.mikbot.plugin.api.util.discordError
+import dev.schlaubi.mikbot.plugin.api.util.translate
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday
 import dev.schlaubi.mikbot.util_plugins.birthdays.server.receiveTimeZone
 import dev.schlaubi.mikbot.util_plugins.ktor.api.buildBotUrl
+import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
 import io.ktor.util.*
-import kotlinx.datetime.toKotlinInstant
-import java.text.DateFormat
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toKotlinLocalDate
 import java.text.ParseException
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.format.FormatStyle
 import java.util.*
 
 class SetArguments : Arguments() {
     val birthday by optionalString {
-        name = "birthday"
-        description = "commands.birthday.set.arguments.birthday.description"
+        name = BirthdaysTranslations.Commands.Birthday.Set.Arguments.Birthday.name
+        description = BirthdaysTranslations.Commands.Birthday.Set.Arguments.Birthday.description
     }
 }
 
+private val LOG = KotlinLogging.logger { }
+
 suspend fun SlashCommand<*, *, *>.setCommand() = ephemeralSubCommand(::SetArguments) {
-    name = "set"
-    description = "commands.birthday.set.description"
+    name = BirthdaysTranslations.Commands.Birthday.Set.name
+    description = BirthdaysTranslations.Commands.Birthday.Set.description
 
     action {
         if (arguments.birthday != null) {
             val locale = event.interaction.locale?.asJavaLocale()
                 ?: event.interaction.guildLocale?.asJavaLocale()
                 ?: Locale.getDefault()
-            val format = DateFormat.getDateInstance(DateFormat.SHORT, locale)
+            val format = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
             val key = generateNonce()
             val url = buildBotUrl {
                 appendPathSegments("birthdays", "timezone", key)
             }
+            val date = try {
+                val parsed = format.parse(arguments.birthday!!)
+                LocalDate.from(parsed)
+            } catch (e: DateTimeParseException) {
+                LOG.debug(e) { "Date parsing failed" }
+                discordError(BirthdaysTranslations.Commands.Birthday.Set.invalidDate)
+            }
             val message = respond {
                 embed {
-                    title = translate("commands.birthday.set.timezone.title")
-                    description = translate("commands.birthday.set.timezone.description", arrayOf(url))
+                    title = translate(BirthdaysTranslations.Commands.Birthday.Set.Timezone.title)
+                    description = translate(BirthdaysTranslations.Commands.Birthday.Set.Timezone.description, url)
                 }
-            }
-            val date = try {
-                format.parse(arguments.birthday).toInstant().toKotlinInstant()
-            } catch (e: ParseException) {
-                discordError(translate("commands.birthday.set.invalid_date"))
             }
             val timeZone = receiveTimeZone(key)
             if (timeZone == null) {
                 message.edit {
-                    content = translate("commands.birthdays.set.timeout")
+                    content = translate(BirthdaysTranslations.Commands.Birthday.Set.timeout)
                     embeds = mutableListOf()
                 }
                 return@action
             }
-            val userBirthday = UserBirthday(user.id, date, timeZone)
+            val kotlinDate = date.toKotlinLocalDate()
+            val instant = kotlinDate.atStartOfDayIn(timeZone)
+            val userBirthday = UserBirthday(user.id, kotlinDate, timeZone)
             BirthdayDatabase.birthdays.save(userBirthday)
 
             message.edit {
                 embeds = mutableListOf()
                 content = translate(
-                    "commands.birthday.set.success",
-                    arrayOf(date.toMessageFormat(DiscordTimestampStyle.LongDate))
+                    BirthdaysTranslations.Commands.Birthday.Set.success,
+                    instant.toMessageFormat(DiscordTimestampStyle.LongDate)
                 )
             }
         } else {
             BirthdayDatabase.birthdays.deleteOneById(user.id)
 
             respond {
-                content = translate("commands.birthday.delete")
+                content = translate(BirthdaysTranslations.Commands.Birthday.delete)
             }
         }
     }

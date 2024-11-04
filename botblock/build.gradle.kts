@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "3.5.1"
+version = "4.0.0"
 
 dependencies {
     implementation(libs.lettuce)

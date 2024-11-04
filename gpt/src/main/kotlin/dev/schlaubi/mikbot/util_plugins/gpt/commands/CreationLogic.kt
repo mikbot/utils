@@ -1,14 +1,16 @@
 package dev.schlaubi.mikbot.util_plugins.gpt.commands
 
-import com.kotlindiscord.kord.extensions.commands.CommandContext
-import com.kotlindiscord.kord.extensions.types.EphemeralInteractionContext
+import dev.kordex.core.commands.CommandContext
+import dev.kordex.core.types.EphemeralInteractionContext
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.channel.withTyping
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.channel.MessageChannel
 import dev.kord.core.entity.channel.TextChannel
+import dev.schlaubi.mikbot.plugin.api.util.translate
 import dev.schlaubi.mikbot.util_plugins.gpt.Conversation
 import dev.schlaubi.mikbot.util_plugins.gpt.GptDatabase
+import dev.schlaubi.mikbot.utils.translations.DeppgptTranslations
 import kotlinx.datetime.Clock
 
 context(CommandContext)
@@ -48,6 +50,6 @@ suspend fun EphemeralInteractionContext.createConversation(channel: MessageChann
     GptDatabase.conversations.save(filledConversation)
 
     respond {
-        content = translate("commands.add_successful", arrayOf(channel.mention))
+        content = translate(DeppgptTranslations.Commands.addSuccessful, channel.mention)
     }
 }

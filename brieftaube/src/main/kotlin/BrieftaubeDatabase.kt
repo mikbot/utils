@@ -1,6 +1,6 @@
 package dev.schlaubi.mikbot.util_plugins.brieftaube
 
-import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.common.entity.Snowflake
 import dev.schlaubi.mikbot.plugin.api.io.getCollection
 import dev.schlaubi.mikbot.plugin.api.util.database
