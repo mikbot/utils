@@ -10,6 +10,7 @@ import dev.kordex.core.commands.application.slash.SlashCommand
 import dev.kordex.core.commands.application.slash.ephemeralSubCommand
 import dev.kordex.core.commands.converters.impl.optionalString
 import dev.schlaubi.mikbot.plugin.api.util.discordError
+import dev.schlaubi.mikbot.plugin.api.util.executableEverywhere
 import dev.schlaubi.mikbot.plugin.api.util.translate
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday
