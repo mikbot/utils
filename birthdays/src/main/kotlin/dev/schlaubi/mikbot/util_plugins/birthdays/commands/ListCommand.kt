@@ -17,6 +17,7 @@ import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.atStartOfDayIn
+import org.litote.kmongo.descending
 import org.litote.kmongo.`in`
 
 @OptIn(KordUnsafe::class, KordExperimental::class)
@@ -26,22 +27,27 @@ suspend fun SlashCommand<*, *, *>.listCommand() = publicSubCommand {
 
     check {
         anyGuild()
-        failIf(event.interaction.context != InteractionContextType.Guild, BirthdaysTranslations.Commands.Birthday.List.userInstall)
+        failIf(
+            event.interaction.context != InteractionContextType.Guild,
+            BirthdaysTranslations.Commands.Birthday.List.userInstall
+        )
     }
 
     action {
         val members = safeGuild.members.map { it.id }.toList()
-        val birthdays = BirthdayDatabase.birthdays.find(UserBirthday::id `in` members).toList()
+        val birthdays = BirthdayDatabase.birthdays.find(UserBirthday::id `in` members)
+            .toList()
+            .map { it.id to it.calculate() }
+            .sortedBy { (_, calculation) -> calculation.dayDifference }
 
         editingPaginator {
             forList(
                 user,
                 birthdays,
-                {
-                    val (birthday, nextBirthday, _, nextAge) = it.calculate()
-
-                    "${kord.unsafe.user(it.id).mention} - ${
-                        birthday.atStartOfDayIn(it.timeZone).toMessageFormat(DiscordTimestampStyle.LongDate)
+                { (id, birthday) ->
+                    val (_, nextBirthday, _, nextAge) = birthday
+                    "${kord.unsafe.user(id).mention} - ${
+                        nextBirthday.toMessageFormat(DiscordTimestampStyle.LongDate)
                     } (${
                         nextBirthday.toMessageFormat(DiscordTimestampStyle.RelativeTime)
                     }) ($nextAge)"
