@@ -3,7 +3,6 @@ package dev.schlaubi.mikbot.util_plugins.birthdays.commands
 import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.annotation.KordExperimental
 import dev.kord.common.annotation.KordUnsafe
-import dev.kord.common.entity.ApplicationIntegrationType
 import dev.kord.common.entity.InteractionContextType
 import dev.kord.common.toMessageFormat
 import dev.kordex.core.checks.anyGuild
@@ -16,8 +15,6 @@ import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday
 import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
-import kotlinx.datetime.atStartOfDayIn
-import org.litote.kmongo.descending
 import org.litote.kmongo.`in`
 
 @OptIn(KordUnsafe::class, KordExperimental::class)
