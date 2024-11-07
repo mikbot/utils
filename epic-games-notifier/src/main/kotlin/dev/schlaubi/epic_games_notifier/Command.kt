@@ -25,7 +25,6 @@ suspend fun SettingsModule.notifierCommand() = ephemeralSlashCommand {
 
     check {
         hasPermission(Permission.ManageWebhooks)
-        requireBotPermissions(Permission.ManageWebhooks)
     }
 
     action {
@@ -36,7 +35,7 @@ suspend fun SettingsModule.notifierCommand() = ephemeralSlashCommand {
                 parameters.append("response_type", "code")
                 parameters.append("scope", "webhook.incoming")
             }.buildString()
-            content = translate(EpicGamesNotifierTranslations.Commands.EpicGamesNotifier.description, url)
+            content = translate(EpicGamesNotifierTranslations.Commands.Enable.description, url)
         }
     }
 }
