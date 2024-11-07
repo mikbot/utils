@@ -56,7 +56,7 @@ data class Mee6LeaderBoard(
 
 @Serializable
 data class Mee6LeaderboardMember(
-    val avatar: String,
+    val avatar: String?,
     @SerialName("detailed_xp")
     val detailedXp: List<Int>,
     @SerialName("guild_id")

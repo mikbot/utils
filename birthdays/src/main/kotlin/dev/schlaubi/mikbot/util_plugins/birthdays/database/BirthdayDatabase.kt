@@ -18,7 +18,7 @@ object BirthdayDatabase : KordExKoinComponent {
 }
 
 @Serializable
-data class UserBirthday(@SerialName("_id") val id: Snowflake, val time: LocalDate, val timeZone: TimeZone)
+data class UserBirthday(@SerialName("_id") val id: Snowflake, val time: LocalDate, val timeZone: TimeZone, val guildId: Snowflake?)
 
 @Serializable
 data class ServerSettings(

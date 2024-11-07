@@ -16,8 +16,12 @@ import dev.schlaubi.mikbot.plugin.api.util.kord
 import dev.schlaubi.mikbot.plugin.api.util.translate
 import dev.schlaubi.mikbot.util_plugins.birthdays.calculate
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.BirthdayDatabase
+import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday
 import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
 import org.litote.kmongo.MongoOperator
+import org.litote.kmongo.and
+import org.litote.kmongo.eq
+import org.litote.kmongo.or
 
 class GetArguments : Arguments() {
     val member by optionalMember {
@@ -35,7 +39,10 @@ suspend fun SlashCommand<*, *, *>.getCommand() = publicSubCommand(::GetArguments
         if (arguments.member != null && event.interaction.context != InteractionContextType.Guild) {
             discordError(BirthdaysTranslations.Commands.Birthday.Get.userInstall)
         }
-        val birthday = BirthdayDatabase.birthdays.findOneById(arguments.member?.id ?: user.id)
+        val id = arguments.member?.id ?: user.id
+        val birthday = BirthdayDatabase.birthdays.findOne(
+            and(UserBirthday::id eq id, or(UserBirthday::guildId eq null, UserBirthday::guildId eq guild?.id))
+        )
 
         if (birthday != null) {
             val (_, nextBirthday, days, age) = birthday.calculate()

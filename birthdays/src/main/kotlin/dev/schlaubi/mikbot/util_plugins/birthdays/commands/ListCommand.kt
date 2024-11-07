@@ -15,7 +15,10 @@ import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday
 import dev.schlaubi.mikbot.utils.translations.BirthdaysTranslations
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
+import org.litote.kmongo.and
+import org.litote.kmongo.eq
 import org.litote.kmongo.`in`
+import org.litote.kmongo.or
 
 @OptIn(KordUnsafe::class, KordExperimental::class)
 suspend fun SlashCommand<*, *, *>.listCommand() = publicSubCommand {
@@ -32,7 +35,9 @@ suspend fun SlashCommand<*, *, *>.listCommand() = publicSubCommand {
 
     action {
         val members = safeGuild.members.map { it.id }.toList()
-        val birthdays = BirthdayDatabase.birthdays.find(UserBirthday::id `in` members)
+        val birthdays = BirthdayDatabase.birthdays.find(
+            and(UserBirthday::id `in` members, or(UserBirthday::guildId eq null, UserBirthday::guildId eq guild?.id))
+        )
             .toList()
             .map { it.id to it.calculate() }
             .sortedBy { (_, calculation) -> calculation.dayDifference }

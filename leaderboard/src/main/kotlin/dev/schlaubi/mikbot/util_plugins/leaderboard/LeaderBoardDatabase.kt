@@ -31,7 +31,7 @@ suspend fun CoroutineCollection<LeaderBoardEntry>.countLeaderboardForGuild(guild
 
 fun CoroutineCollection<LeaderBoardEntry>.leaderboardForGuild(guild: Snowflake) = find(
     LeaderBoardEntry::guildId eq guild
-).descendingSort(LeaderBoardEntry::points).toFlow()
+).descendingSort(LeaderBoardEntry::level, LeaderBoardEntry::points).toFlow()
 
 @Serializable
 data class LeaderBoardSettings(
