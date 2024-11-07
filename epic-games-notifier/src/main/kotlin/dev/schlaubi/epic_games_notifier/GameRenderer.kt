@@ -10,9 +10,10 @@ fun Game.toEmbed(): EmbedBuilder = embed {
     title = this@toEmbed.title
     description = this@toEmbed.description
     url = if (offerType == "BUNDLE") {
-        "https://www.epicgames.com/store/${Config.COUNTRY_CODE.lowercase()}/bundles/$productSlug"
+        "https://store.epicgames.com/${Config.COUNTRY_CODE.lowercase()}/bundles/$productSlug"
     } else {
-        "https://www.epicgames.com/store/${Config.COUNTRY_CODE.lowercase()}/p/${productSlug ?: urlSlug}"
+        val slug = offerMappings.firstOrNull()?.pageSlug ?: productSlug ?: urlSlug
+        "https://store.epicgames.com/${Config.COUNTRY_CODE.lowercase()}/p/$slug"
     }
 
     field {

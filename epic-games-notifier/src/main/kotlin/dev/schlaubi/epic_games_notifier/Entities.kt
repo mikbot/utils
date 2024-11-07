@@ -26,6 +26,7 @@ data class Game(
     val status: String,
     val keyImages: List<KeyImage>,
     val seller: Seller,
+    val offerMappings: List<OfferMapping>,
     val productSlug: String?,
     val urlSlug: String,
     val price: Price,
@@ -72,3 +73,6 @@ data class DiscordOauthResponse(val webhook: DiscordWebhook)
 
 @Serializable
 data class DiscordWebhook(val token: String, val id: Snowflake)
+
+@Serializable
+data class OfferMapping(val pageSlug: String)
