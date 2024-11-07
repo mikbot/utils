@@ -42,7 +42,7 @@ object HttpRequests {
         val response = client.post(Route.baseUrl) {
 
             url {
-                path("api", "v9", "oauth2", "token")
+                path("api", "oauth2", "token")
             }
 
             val data = Parameters.build {

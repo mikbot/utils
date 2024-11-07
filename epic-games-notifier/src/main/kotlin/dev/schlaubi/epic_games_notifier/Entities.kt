@@ -26,7 +26,7 @@ data class Game(
     val status: String,
     val keyImages: List<KeyImage>,
     val seller: Seller,
-    val offerMappings: List<OfferMapping>,
+    val offerMappings: List<OfferMapping>?,
     val productSlug: String?,
     val urlSlug: String,
     val price: Price,
