@@ -64,7 +64,9 @@ private suspend fun cycle(kord: Kord) {
                 }
             }
 
-            guild.getChannelOf<GuildMessageChannel>(it.birthdayChannel!!).createMessage(message)
+            if (message.isNotBlank()) {
+                guild.getChannelOf<GuildMessageChannel>(it.birthdayChannel!!).createMessage(message)
+            }
         } catch (e: RestRequestException) {
             LOG.warn(e) { "An error occurred whilst sending birthday notifications" }
         }
