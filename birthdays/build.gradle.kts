@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "3.1.1"
+version = "3.1.2"
 
 dependencies {
     plugin(mikbot(libs.mikbot.ktor))

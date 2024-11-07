@@ -38,6 +38,8 @@ class SetArguments : Arguments() {
 
 private val LOG = KotlinLogging.logger { }
 
+private val format = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+
 suspend fun SlashCommand<*, *, *>.setCommand() = ephemeralSubCommand(::SetArguments) {
     name = BirthdaysTranslations.Commands.Birthday.Set.name
     description = BirthdaysTranslations.Commands.Birthday.Set.description
@@ -47,17 +49,19 @@ suspend fun SlashCommand<*, *, *>.setCommand() = ephemeralSubCommand(::SetArgume
             val locale = event.interaction.locale?.asJavaLocale()
                 ?: event.interaction.guildLocale?.asJavaLocale()
                 ?: Locale.getDefault()
-            val format = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
+            val localizedFormat = format
+                .localizedBy(locale)
             val key = generateNonce()
             val url = buildBotUrl {
                 appendPathSegments("birthdays", "timezone", key)
             }
             val date = try {
-                val parsed = format.parse(arguments.birthday!!)
+                val parsed = localizedFormat.parse(arguments.birthday!!)
                 LocalDate.from(parsed)
             } catch (e: DateTimeParseException) {
+                val sampleDate = localizedFormat.format(LocalDate.now())
                 LOG.debug(e) { "Date parsing failed" }
-                discordError(BirthdaysTranslations.Commands.Birthday.Set.invalidDate)
+                discordError(BirthdaysTranslations.Commands.Birthday.Set.invalidDate.withOrdinalPlaceholders(sampleDate))
             }
             val message = respond {
                 embed {
