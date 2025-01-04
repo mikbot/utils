@@ -6,6 +6,7 @@ import dev.schlaubi.mikbot.plugin.api.io.getCollection
 import dev.schlaubi.mikbot.plugin.api.util.database
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.litote.kmongo.Id
@@ -29,7 +30,7 @@ data class ServerSettings(
 
 @Serializable
 data class BirthdayNotification(
-    @SerialName("_id") val id: Id<BirthdayNotification> = newId(),
+    @Contextual @SerialName("_id") val id: Id<BirthdayNotification> = newId(),
     val birthdayId: Snowflake,
     val year: UInt
 )
