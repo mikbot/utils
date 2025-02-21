@@ -65,7 +65,9 @@ private suspend fun cycle(kord: Kord) {
             }
 
             val notifications = guildBirthdays.map { BirthdayNotification(birthdayId = it.id, year = currentYear) }
-            BirthdayDatabase.notifications.insertMany(notifications)
+            if (notifications.isNotEmpty()) {
+                BirthdayDatabase.notifications.insertMany(notifications)
+            }
             if (message.isNotBlank()) {
                 guild.getChannelOf<GuildMessageChannel>(it.birthdayChannel!!).createMessage(message)
             }
