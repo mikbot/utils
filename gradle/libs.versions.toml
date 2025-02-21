@@ -1,12 +1,12 @@
 [versions]
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 mikbot = "4.2.0"
 
 [libraries]
 # Gradle plugins
 mikbot-gradle-plugin = { group = "dev.schlaubi", name = "gradle-plugin", version.ref = "mikbot" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "2.1.0-1.0.29" }
+ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "2.1.10-1.0.29" }
 
 mikbot-ktor = { group = "dev.schlaubi", name = "mikbot-ktor" }
 mikbot-gdpr = { group = "dev.schlaubi", name = "mikbot-gdpr" }
