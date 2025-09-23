@@ -5,7 +5,7 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.MemberBehavior
 import dev.schlaubi.mikbot.plugin.api.io.getCollection
 import dev.schlaubi.mikbot.plugin.api.util.database
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

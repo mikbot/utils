@@ -28,7 +28,7 @@ pluginPublishing {
 subprojects {
     afterEvaluate {
         configure<JavaPluginExtension> {
-            sourceCompatibility = JavaVersion.VERSION_22
+            sourceCompatibility = JavaVersion.VERSION_24
         }
     }
 }

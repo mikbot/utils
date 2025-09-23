@@ -1,8 +1,14 @@
 package dev.schlaubi.mikbot.util_plugins.birthdays
 
 import dev.schlaubi.mikbot.util_plugins.birthdays.database.UserBirthday
-import kotlinx.datetime.*
-import java.time.Month
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Month
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.daysUntil
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.yearsUntil
+import kotlin.time.*
 
 data class BirthdayContainer(
     val birthday: LocalDate,
@@ -29,10 +35,10 @@ fun UserBirthday.calculate(): BirthdayContainer {
 }
 
 fun LocalDate.atYear(year: Int): LocalDate {
-    if (dayOfMonth == 29 && month == Month.FEBRUARY) { // handle leap years
+    if (day == 29 && month == Month.FEBRUARY) { // handle leap years
         return LocalDate(year, Month.MARCH, 1)
     }
-    return LocalDate(year, month, dayOfMonth)
+    return LocalDate(year, month, day)
 }
 
-fun LocalDateTime.toLocalDate() = LocalDate(year, month, dayOfMonth)
+fun LocalDateTime.toLocalDate() = LocalDate(year, month, day)

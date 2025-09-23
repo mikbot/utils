@@ -1,7 +1,7 @@
 package dev.schlaubi.epic_games_notifier
 
 import dev.kord.common.entity.Snowflake
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

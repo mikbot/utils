@@ -8,7 +8,7 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 object HttpRequests {
     private val endpoint = Url("https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions")

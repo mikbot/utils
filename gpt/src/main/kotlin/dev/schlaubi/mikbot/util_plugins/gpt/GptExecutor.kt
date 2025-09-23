@@ -6,7 +6,7 @@ import dev.kordex.core.extensions.event
 import dev.kord.core.behavior.channel.withTyping
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
 suspend fun Extension.gptExecutor() = event<MessageCreateEvent> {
     check {

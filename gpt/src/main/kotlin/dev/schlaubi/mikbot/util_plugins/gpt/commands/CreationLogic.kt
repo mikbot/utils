@@ -11,9 +11,9 @@ import dev.schlaubi.mikbot.plugin.api.util.translate
 import dev.schlaubi.mikbot.util_plugins.gpt.Conversation
 import dev.schlaubi.mikbot.util_plugins.gpt.GptDatabase
 import dev.schlaubi.mikbot.utils.translations.DeppgptTranslations
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 
-context(CommandContext)
+context(_: CommandContext)
 suspend fun EphemeralInteractionContext.createConversation(
     baseChannel: TextChannel,
     initialMessage: Message
@@ -23,7 +23,7 @@ suspend fun EphemeralInteractionContext.createConversation(
     createConversation(thread, initialMessage)
 }
 
-context(CommandContext)
+context(_: CommandContext)
 suspend fun EphemeralInteractionContext.createConversation(
     baseChannel: TextChannel,
     name: String
@@ -33,7 +33,7 @@ suspend fun EphemeralInteractionContext.createConversation(
     createConversation(thread)
 }
 
-context(CommandContext)
+context(context: CommandContext)
 suspend fun EphemeralInteractionContext.createConversation(channel: MessageChannel, initialMessage: Message? = null) {
     val conversation = Conversation(channel.id, emptyList(), Clock.System.now())
     val filledConversation = if (initialMessage != null) {
@@ -50,6 +50,6 @@ suspend fun EphemeralInteractionContext.createConversation(channel: MessageChann
     GptDatabase.conversations.save(filledConversation)
 
     respond {
-        content = translate(DeppgptTranslations.Commands.addSuccessful, channel.mention)
+        content = context.translate(DeppgptTranslations.Commands.addSuccessful, channel.mention)
     }
 }

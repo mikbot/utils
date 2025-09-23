@@ -3,8 +3,8 @@ package dev.schlaubi.mikbot.util_plugins.gpt
 import dev.kord.common.entity.Snowflake
 import dev.schlaubi.mikbot.util_plugins.gpt.model.Message
 import dev.schlaubi.mikbot.util_plugins.gpt.model.MessageRequest
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

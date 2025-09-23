@@ -1,22 +1,22 @@
 [versions]
-kotlin = "2.1.10"
-mikbot = "4.2.0"
+kotlin = "2.2.20"
+mikbot = "5.0.0"
 
 [libraries]
 # Gradle plugins
 mikbot-gradle-plugin = { group = "dev.schlaubi", name = "gradle-plugin", version.ref = "mikbot" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "2.1.10-1.0.29" }
+ksp-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version = "2.2.20-2.0.3" }
 
 mikbot-ktor = { group = "dev.schlaubi", name = "mikbot-ktor" }
 mikbot-gdpr = { group = "dev.schlaubi", name = "mikbot-gdpr" }
 mikbot-haste-client = { group = "dev.schlaubi", name = "mikbot-haste-client" }
 mikbot-kubernetes = { group = "dev.schlaubi", name = "mikbot-kubernetes" }
 
-kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "5.1.0" }
+kmongo-id-serialization = { group = "org.litote.kmongo", name = "kmongo-id-serialization", version = "5.5.1" }
 
-lettuce = { group = "io.lettuce", name = "lettuce-core", version = "6.5.1.RELEASE" }
-kotlinx-coroutines-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version = "1.7.3" }
+lettuce = { group = "io.lettuce", name = "lettuce-core", version = "6.8.1.RELEASE" }
+kotlinx-coroutines-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version = "1.9.0" }
 
 [plugins]
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

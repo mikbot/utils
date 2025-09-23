@@ -9,7 +9,7 @@ import dev.kord.core.event.message.MessageCreateEvent
 import dev.schlaubi.mikbot.util_plugins.leaderboard.LeaderBoardDatabase
 import dev.schlaubi.mikbot.util_plugins.leaderboard.calculateXPForNextLevel
 import dev.schlaubi.mikbot.util_plugins.leaderboard.findByMember
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.minutes
 

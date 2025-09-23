@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "2.0.0"
+version = "3.0.0"
 
 dependencies {
     optionalPlugin(mikbot(libs.mikbot.gdpr))
@@ -15,12 +15,4 @@ dependencies {
 mikbotPlugin {
     description = "Die erste menschliche KI"
     bundle = "deppgpt"
-}
-
-tasks {
-    withType<KotlinCompile> {
-        compilerOptions {
-            freeCompilerArgs.add("-Xcontext-receivers")
-        }
-    }
 }

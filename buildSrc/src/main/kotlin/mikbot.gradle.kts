@@ -8,6 +8,8 @@ plugins {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_22
+        optIn.add("kotlin.time.ExperimentalTime")
+        freeCompilerArgs.add("-Xcontext-parameters")
+        jvmTarget = JvmTarget.JVM_24
     }
 }
