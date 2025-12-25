@@ -4,9 +4,11 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import dev.kordex.core.builders.ExtensionsBuilder
 import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.event
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginContext
 import dev.schlaubi.mikbot.plugin.api.PluginMain
+import dev.schlaubi.mikbot.plugin.api.util.AllShardsReadyEvent
 import dev.schlaubi.mikbot.util_plugins.birthdays.commands.birthdayCommand
 import dev.schlaubi.mikbot.util_plugins.birthdays.commands.settingsCommand
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +38,12 @@ class BirthdaysModule : Extension(), CoroutineScope {
         birthdayCommand()
         settingsCommand()
 
-        launchNotifier(kord)
+
+        event<AllShardsReadyEvent> {
+            action {
+                launchNotifier(kord)
+            }
+        }
     }
 
     override suspend fun unload() {
