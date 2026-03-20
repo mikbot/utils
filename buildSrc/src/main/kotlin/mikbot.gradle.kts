@@ -10,6 +10,6 @@ kotlin {
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
         freeCompilerArgs.add("-Xcontext-parameters")
-        jvmTarget = JvmTarget.JVM_24
+        jvmTarget = JvmTarget.JVM_25
     }
 }

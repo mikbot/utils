@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "3.0.0"
+version = "3.1.0"
 
 mikbotPlugin {
     description = "Plugin allowing you to mirror channels in threads"
