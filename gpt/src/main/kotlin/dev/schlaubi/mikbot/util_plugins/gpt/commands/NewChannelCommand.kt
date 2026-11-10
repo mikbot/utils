@@ -23,7 +23,9 @@ suspend fun Extension.newChannelCommand() = ephemeralSlashCommand(::NewChannelAr
     name = DeppgptTranslations.Commands.NewGptChannel.name
     description = DeppgptTranslations.Commands.NewGptChannel.description
 
-    allowedContexts.add(InteractionContextType.Guild)
+    scope {
+        contexts.allowInGuilds()
+    }
     requirePermission(Permission.ManageChannels)
     requireBotPermissions(Permission.ManageChannels)
 

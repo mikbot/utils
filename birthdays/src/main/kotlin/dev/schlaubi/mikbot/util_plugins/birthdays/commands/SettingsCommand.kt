@@ -32,8 +32,10 @@ class SettingsArguments : Arguments() {
 
 suspend fun Extension.settingsCommand() = ephemeralSlashCommand(::SettingsArguments) {
     guildAdminOnly()
-    allowedContexts.add(InteractionContextType.Guild)
-    allowedInstallTypes.add(ApplicationIntegrationType.GuildInstall)
+    scope {
+        guildInstallable()
+        contexts.allowInGuilds()
+    }
     name = BirthdaysTranslations.Commands.Settings.name
     description = BirthdaysTranslations.Commands.Settings.description
 

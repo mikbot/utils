@@ -4,7 +4,7 @@ import dev.kordex.core.commands.Arguments
 import dev.kordex.core.commands.application.slash.converters.impl.defaultingEnumChoice
 import dev.kordex.core.commands.converters.impl.snowflake
 import dev.kordex.core.extensions.ephemeralSlashCommand
-import dev.kordex.core.i18n.EMPTY_KEY
+import dev.kordex.i18n.EMPTY_KEY
 import dev.schlaubi.mikbot.plugin.api.MikBotTranslations
 import dev.schlaubi.mikbot.plugin.api.owner.OwnerModule
 import dev.schlaubi.mikbot.plugin.api.owner.ownerOnly

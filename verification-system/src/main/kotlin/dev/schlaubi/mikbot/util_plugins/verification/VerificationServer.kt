@@ -1,25 +1,25 @@
 package dev.schlaubi.mikbot.util_plugins.verification
 
-import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.common.entity.DiscordPartialGuild
 import dev.kord.common.entity.DiscordUser
 import dev.kord.common.entity.Snowflake
 import dev.kord.common.entity.optional.Optional
 import dev.kord.common.entity.optional.unwrap
 import dev.kord.core.Kord
+import dev.kordex.core.koin.KordExKoinComponent
 import dev.schlaubi.mikbot.util_plugins.ktor.api.KtorExtensionPoint
 import dev.schlaubi.mikbot.util_plugins.ktor.api.buildBotUrl
 import dev.schlaubi.stdx.logging.debugInlined
 import io.ktor.client.*
-import io.ktor.client.call.body
+import io.ktor.client.call.*
 import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.resources.*
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.resources.*
@@ -33,7 +33,6 @@ import mu.KotlinLogging
 import org.bson.types.ObjectId
 import org.koin.core.component.inject
 import org.pf4j.Extension
-import kotlin.collections.set
 import dev.kord.rest.route.Route.Companion as DiscordRoute
 
 @Serializable
@@ -86,7 +85,7 @@ class VerificationServer : KtorExtensionPoint, KordExKoinComponent {
                 VerificationDatabase.invites.deleteOneById(invitation.id)
                 VerificationDatabase.collection.save(botGuild.copy(verified = true))
 
-                val state = generateNonce()
+                val state = generateNonceBlocking()
                 states[state] = invitation
 
                 val authorizeUrl =
@@ -113,7 +112,7 @@ class VerificationServer : KtorExtensionPoint, KordExKoinComponent {
                         append("redirect_uri", redirectUri)
                     }
 
-                    setBody( FormDataContent(data))
+                    setBody(FormDataContent(data))
                 }
                 if (response.status.value in 200..299) {
                     response.validateInformation(invitation)
@@ -196,7 +195,10 @@ private suspend fun revokeToken(token: String): Nothing {
 }
 
 @Serializable
-private data class OAuthToken(@SerialName("access_token") val token: String, val guild: Optional<DiscordPartialGuild> = Optional.Missing())
+private data class OAuthToken(
+    @SerialName("access_token") val token: String,
+    val guild: Optional<DiscordPartialGuild> = Optional.Missing()
+)
 
 @Serializable
 private data class OAuthProfile(val user: Optional<DiscordUser> = Optional.Missing())

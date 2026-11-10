@@ -70,7 +70,7 @@ suspend fun SlashCommand<*, *, *>.setCommand() = ephemeralSubCommand(::SetArgume
                 ?: Locale.getDefault()
             val localizedFormat = format
                 .localizedBy(locale)
-            val key = generateNonce()
+            val key = generateNonceBlocking()
             val url = buildBotUrl {
                 appendPathSegments("birthdays", "timezone", key)
             }

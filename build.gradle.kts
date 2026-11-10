@@ -24,11 +24,3 @@ pluginPublishing {
     projectUrl = "https://github.com/mikbot/utils"
     repositoryUrl = "https://storage.googleapis.com/mikbot-plugins"
 }
-
-subprojects {
-    afterEvaluate {
-        configure<JavaPluginExtension> {
-            sourceCompatibility = JavaVersion.VERSION_25
-        }
-    }
-}

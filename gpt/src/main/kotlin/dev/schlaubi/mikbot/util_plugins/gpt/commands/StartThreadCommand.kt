@@ -23,8 +23,12 @@ class StartThreadArgs : Arguments() {
 suspend fun Extension.newThreadCommand() = ephemeralSlashCommand(::StartThreadArgs) {
     name = DeppgptTranslations.Commands.StartThread.name
     description = DeppgptTranslations.Commands.StartThread.description
-    allowedContexts.add(InteractionContextType.Guild)
-    allowedInstallTypes.addAll(listOf(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall))
+    scope {
+        guildInstallable()
+        userInstallable {
+            allowInGuilds()
+        }
+    }
 
     check {
         channelType(ChannelType.GuildText)

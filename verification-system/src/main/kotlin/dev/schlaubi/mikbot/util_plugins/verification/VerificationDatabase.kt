@@ -4,7 +4,7 @@ import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kord.common.entity.ApplicationIntegrationType
 import dev.kord.common.entity.Snowflake
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.schlaubi.mikbot.plugin.api.io.getCollection
 import dev.schlaubi.mikbot.plugin.api.util.database
 import dev.schlaubi.mikbot.utils.translations.VerificationSystemTranslations

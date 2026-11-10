@@ -9,7 +9,10 @@ plugins {
 kotlin {
     compilerOptions {
         optIn.add("kotlin.time.ExperimentalTime")
-        freeCompilerArgs.add("-Xcontext-parameters")
-        jvmTarget = JvmTarget.JVM_25
+        jvmTarget = JvmTarget.JVM_26
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_26
 }
