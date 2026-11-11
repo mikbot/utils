@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.4.21"
-mikbot = "5.2.2"
+mikbot = "5.2.3"
 
 [libraries]
 # Gradle plugins
