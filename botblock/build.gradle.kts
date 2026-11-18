@@ -9,7 +9,7 @@ version = "5.2.1"
 
 dependencies {
     implementation(libs.lettuce)
-    implementation(libs.kotlinx.coroutines.protobuf)
+    implementation(libs.kotlinx.serialization.protobuf)
     optionalPlugin(mikbot(libs.mikbot.kubernetes))
 }
 
