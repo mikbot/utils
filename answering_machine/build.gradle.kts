@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-version = "3.2.1"
+version = "3.2.2"
 
 mikbotPlugin {
     description = "Plugin which allows to automatically answer specific messages"

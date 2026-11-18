@@ -12,5 +12,6 @@ include(
     ":epic-games-notifier",
     ":gpt",
     ":leaderboard",
-    ":verification-system"
+    ":verification-system",
+    ":misc"
 )
